@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSI-008 | Market Sentiment Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #262626;
+            --text: #fafafa;
+            --text-secondary: #737373;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--success);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero {
+            padding: 80px 0 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .module-id {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            font-family: monospace;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .gauge-container {
+            display: flex;
+            justify-content: center;
+            margin: 60px 0;
+        }
+
+        .gauge {
+            width: 280px;
+            text-align: center;
+        }
+
+        .gauge-value {
+            font-size: 96px;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: monospace;
+        }
+
+        .gauge-label {
+            font-size: 18px;
+            color: var(--text);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+        }
+
+        .gauge-condition {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .gauge-bar {
+            height: 12px;
+            background: var(--surface);
+            border-radius: 6px;
+            margin-top: 32px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .gauge-fill {
+            height: 100%;
+
+            width: {
+                GAUGE_WIDTH
+            }
+
+            %;
+            background: linear-gradient(90deg, var(--danger), var(--accent), var(--success));
+            border-radius: 6px;
+            transition: width 0.5s;
+        }
+
+        .gauge-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '//';
+            color: var(--accent);
+            font-family: monospace;
+        }
+
+        .data-table {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--surface);
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 11px;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table td {
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .source-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .source-name {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .source-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text);
+            font-family: monospace;
+        }
+
+        .source-weight {
+            font-size: 11px;
+            color: var(--accent);
+            margin-top: 4px;
+        }
+
+        .updated {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .sources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .gauge-value {
+                font-size: 64px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="breadcrumb"><a href="https://akgularda.github.io/MonarchCastle">Monarch Castle</a> /
+                <span>CSI-008</span></div>
+            <div class="status-badge"><span class="status-dot"></span><span>LIVE DATA</span></div>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="module-id">CSI-008 // FINANCIAL INTELLIGENCE</div>
+                <h1>Cloudy & Shiny Index</h1>
+                <p>Unified market sentiment score aggregating fear/greed signals from stocks, crypto, and volatility
+                    indices.</p>
+            </div>
+        </section>
+        <div class="container">
+            <div class="gauge-container">
+                <div class="gauge">
+                    <div class="gauge-value">55</div>
+                    <div class="gauge-label">Partially Sunny (Neutral)</div>
+                    <div class="gauge-condition">Condition: PARTIALLY SUNNY</div>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill"></div>
+                    </div>
+                    <div class="gauge-scale">
+                        <span>0 - Fear</span>
+                        <span>100 - Greed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="container">
+                <div class="section">
+                    <h2 class="section-title">Component Scores</h2>
+                    <div class="sources-grid">
+                        <div class="source-card">
+                            <div class="source-name">Stock Fear/Greed</div>
+                            <div class="source-value">63</div>
+                            <div class="source-weight">Weight: 40%</div>
+                        </div>
+                        <div class="source-card">
+                            <div class="source-name">Crypto Fear/Greed</div>
+                            <div class="source-value">49</div>
+                            <div class="source-weight">Weight: 30%</div>
+                        </div>
+                        <div class="source-card">
+                            <div class="source-name">VIX (Inverted)</div>
+                            <div class="source-value">94</div>
+                            <div class="source-weight">Weight: 30%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">History (7 Days)</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Score</th>
+                                <th>Classification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2026-01-16</td><td>55</td><td>Neutral</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 
+                <div class="section">
+                    <h2 class="section-title">2-Year Backtest Trend</h2>
+                    <img src="history_chart.png" alt="2-Year Sentiment Trend" style="width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                </div>
+                -->
+                <p class="updated">Last updated: 2026-01-16 14:05</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>CSI-008 · <a href="https://akgularda.github.io/MonarchCastle">Monarch Castle Technologies</a> · Data from
+                alternative.me</p>
+        </div>
+    </footer>
+</body>
+
+</html>
