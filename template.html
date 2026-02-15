@@ -1,685 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloudy&Shiny Index | Monarch Castle Technologies</title>
-    <meta name="description" content="Global market sentiment intelligence dashboard">
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-dark: #0a0e14;
-            --bg-panel: #0d1117;
-            --bg-card: #161b22;
-            --border: #21262d;
-            --border-accent: #30363d;
-            --text-primary: #e6edf3;
-            --text-secondary: #7d8590;
-            --text-muted: #484f58;
-            --accent-cyan: #39c5bb;
-            --accent-green: #3fb950;
-            --accent-yellow: #d29922;
-            --accent-orange: #db6d28;
-            --accent-red: #f85149;
-            --accent-blue: #58a6ff;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 24px;
-            background: var(--bg-panel);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-icon {
-            width: 28px;
-            height: 28px;
-            background: var(--accent-cyan);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-
-        .logo-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .logo-sub {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.4;
-            }
-        }
-
-        /* Main Layout */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 280px 1fr 320px;
-            gap: 1px;
-            background: var(--border);
-            min-height: calc(100vh - 53px);
-        }
-
-        .panel {
-            background: var(--bg-panel);
-            padding: 20px;
-        }
-
-        .panel-header {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Left Panel - Index Score */
-        .index-display {
-            margin-bottom: 32px;
-        }
-
-        .index-label {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-        }
-
-        .index-score {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 56px;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .index-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .index-delta {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        /* Mini Chart */
-        .mini-chart {
-            margin-bottom: 32px;
-        }
-
-        .mini-chart-title {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 12px;
-        }
-
-        .chart-container {
-            height: 120px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 12px;
-            position: relative;
-        }
-
-        .chart-svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .chart-grid-line {
-            stroke: var(--border);
-            stroke-width: 1;
-        }
-
-        .chart-line {
-            fill: none;
-            stroke: var(--accent-cyan);
-            stroke-width: 2;
-        }
-
-        .chart-ma-line {
-            fill: none;
-            stroke: var(--accent-yellow);
-            stroke-width: 1.5;
-            stroke-dasharray: 4 2;
-        }
-
-        .chart-legend {
-            display: flex;
-            gap: 16px;
-            margin-top: 8px;
-            font-size: 10px;
-            color: var(--text-secondary);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .legend-line {
-            width: 16px;
-            height: 2px;
-        }
-
-        .legend-line.index {
-            background: var(--accent-cyan);
-        }
-
-        .legend-line.ma {
-            background: var(--accent-yellow);
-            stroke-dasharray: 4 2;
-        }
-
-        /* Component Weights */
-        .weight-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .weight-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        .weight-name {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .weight-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 2px;
-        }
-
-        .weight-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-            color: var(--accent-cyan);
-        }
-
-        /* Center Panel - Asset Grid */
-        .center-panel {
-            padding: 20px 24px;
-        }
-
-        .assets-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .assets-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        .asset-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 16px;
-            transition: border-color 0.2s;
-        }
-
-        .asset-card:hover {
-            border-color: var(--border-accent);
-        }
-
-        .asset-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .asset-name {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-
-        .asset-ticker {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .asset-ma-badge {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 9px;
-            font-weight: 600;
-            padding: 3px 6px;
-            border-radius: 3px;
-            text-transform: uppercase;
-        }
-
-        .asset-ma-badge.above {
-            background: rgba(63, 185, 80, 0.15);
-            color: var(--accent-green);
-        }
-
-        .asset-ma-badge.below {
-            background: rgba(248, 81, 73, 0.15);
-            color: var(--accent-red);
-        }
-
-        .asset-score {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .asset-score.bullish {
-            color: var(--accent-green);
-        }
-
-        .asset-score.neutral {
-            color: var(--accent-yellow);
-        }
-
-        .asset-score.bearish {
-            color: var(--accent-red);
-        }
-
-        .asset-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* Mini sparkline in asset card */
-        .asset-spark {
-            height: 24px;
-            margin: 8px 0;
-        }
-
-        .spark-svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .spark-line {
-            fill: none;
-            stroke-width: 1.5;
-        }
-
-        .spark-line.up {
-            stroke: var(--accent-green);
-        }
-
-        .spark-line.down {
-            stroke: var(--accent-red);
-        }
-
-        .spark-line.flat {
-            stroke: var(--accent-yellow);
-        }
-
-        /* Right Panel - History Feed */
-        .history-feed {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .history-item {
-            padding: 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-        }
-
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .history-time {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .history-badge {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 9px;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 3px;
-            text-transform: uppercase;
-        }
-
-        .history-badge.greed {
-            background: rgba(63, 185, 80, 0.15);
-            color: var(--accent-green);
-        }
-
-        .history-badge.fear {
-            background: rgba(248, 81, 73, 0.15);
-            color: var(--accent-red);
-        }
-
-        .history-badge.neutral {
-            background: rgba(210, 153, 34, 0.15);
-            color: var(--accent-yellow);
-        }
-
-        .history-score {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .history-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        /* Benchmark Comparison */
-        .benchmark-section {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .benchmark-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            font-size: 12px;
-        }
-
-        .benchmark-name {
-            color: var(--text-secondary);
-        }
-
-        .benchmark-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .footer {
-            grid-column: 1 / -1;
-            padding: 12px 24px;
-            background: var(--bg-panel);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .footer a {
-            color: var(--accent-cyan);
-            text-decoration: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .main-grid {
-                grid-template-columns: 240px 1fr 280px;
-            }
-
-            .assets-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .assets-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloudy&Shiny Index | Monarch Castle Technologies</title>
+  <meta name="description" content="Global market sentiment intelligence dashboard">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#0a0e14;--panel:#0d1117;--card:#161b22;--border:#21262d;--accent:#39c5bb;
+      --green:#3fb950;--yellow:#d29922;--red:#f85149;--blue:#58a6ff;--txt:#e6edf3;--muted:#7d8590;
+    }
+    body{font-family:Inter,-apple-system,sans-serif;background:var(--bg);color:var(--txt)}
+    .header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid var(--border);background:var(--panel)}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:28px;height:28px;border-radius:4px;background:var(--accent);color:#071117;display:flex;align-items:center;justify-content:center;font:700 13px "JetBrains Mono",monospace}
+    .name{font:700 14px "JetBrains Mono",monospace;letter-spacing:.05em;text-transform:uppercase}
+    .sub{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .hdr-right{display:flex;gap:18px;font:11px "JetBrains Mono",monospace;color:var(--muted)}
+    .dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
+    .tape{padding:7px 10px;border-bottom:1px solid var(--border);overflow:auto;white-space:nowrap;background:linear-gradient(180deg,rgba(88,166,255,.06),rgba(13,17,23,.94))}
+    .tape-track{display:inline-flex;gap:8px}
+    .tape-item{display:flex;gap:8px;justify-content:space-between;min-width:72px;padding:4px 8px;border-radius:4px;background:var(--card);border:1px solid var(--border);font:10px "JetBrains Mono",monospace}
+    .tape-item.bullish{color:var(--green);border-color:rgba(63,185,80,.4)}
+    .tape-item.neutral{color:var(--yellow);border-color:rgba(210,153,34,.4)}
+    .tape-item.bearish{color:var(--red);border-color:rgba(248,81,73,.4)}
+    .grid{display:grid;grid-template-columns:300px 1fr 340px;gap:1px;background:var(--border);min-height:calc(100vh - 90px)}
+    .panel{background:var(--panel);padding:18px}
+    .h{font:600 10px "JetBrains Mono",monospace;color:#5f6b77;letter-spacing:.15em;text-transform:uppercase;padding-bottom:7px;margin-bottom:12px;border-bottom:1px solid var(--border)}
+    .score-label{font-size:10px;color:#5f6b77;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+    .score{font:700 54px "JetBrains Mono",monospace;color:var(--accent);line-height:1;margin-bottom:4px}
+    .status{font:600 12px "JetBrains Mono",monospace;text-transform:uppercase}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px}
+    .g-title,.s-title{font-size:10px;color:#5f6b77;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .gauge{margin:12px 0}
+    .gauge svg{width:100%;height:128px;display:block}
+    .gauge .bg{stroke:var(--border);stroke-width:10;fill:none}
+    .gauge .fear{stroke:var(--red);stroke-width:10;fill:none;stroke-linecap:round}
+    .gauge .neu{stroke:var(--yellow);stroke-width:10;fill:none;stroke-linecap:round}
+    .gauge .grd{stroke:var(--green);stroke-width:10;fill:none;stroke-linecap:round}
+    .needle{stroke:var(--accent);stroke-width:3;stroke-linecap:round}
+    .cap{fill:var(--accent)}
+    .g-scale{display:flex;justify-content:space-between;font:9px "JetBrains Mono",monospace;color:#5f6b77;margin-top:-6px}
+    .mini{margin:12px 0}
+    .mini .box{height:104px;padding:9px;border:1px solid var(--border);border-radius:4px;background:var(--card)}
+    .mini svg{width:100%;height:100%}
+    .gl{stroke:var(--border);stroke-width:1}.line{fill:none;stroke:var(--accent);stroke-width:2}.ma{fill:none;stroke:var(--yellow);stroke-width:1.5;stroke-dasharray:4 2}
+    .legend{display:flex;gap:12px;font-size:10px;color:var(--muted);margin-top:7px}
+    .forecast{margin:12px 0}
+    .forecast .box{height:100px;padding:9px;border:1px solid var(--border);border-radius:4px;background:var(--card)}
+    .forecast svg{width:100%;height:100%}
+    .f-actual{fill:none;stroke:var(--accent);stroke-width:2}
+    .f-proj{fill:none;stroke:var(--yellow);stroke-width:1.8;stroke-dasharray:4 2}
+    .f-upper{fill:none;stroke:rgba(63,185,80,.9);stroke-width:1.3;stroke-dasharray:3 2}
+    .f-lower{fill:none;stroke:rgba(248,81,73,.9);stroke-width:1.3;stroke-dasharray:3 2}
+    .f-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);margin-top:6px}
+    .f-target{font:700 11px "JetBrains Mono",monospace}
+    .f-delta{font:700 11px "JetBrains Mono",monospace}
+    .f-meta-2{display:flex;justify-content:space-between;align-items:center;font:10px "JetBrains Mono",monospace;color:var(--muted);margin-top:4px}
+    .regime-prob,.waterfall,.conf{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;margin:10px 0}
+    .rp-title,.wf-title,.conf-title{font-size:10px;color:#5f6b77;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+    .rp-grid{display:grid;gap:6px}
+    .rp-row{display:grid;grid-template-columns:56px 1fr 52px;align-items:center;gap:8px}
+    .rp-label{font:10px "JetBrains Mono",monospace;color:var(--muted)}
+    .rp-track{height:8px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid var(--border)}
+    .rp-fill{height:100%}
+    .rp-fill.stormy{background:rgba(248,81,73,.8)}
+    .rp-fill.cloudy{background:rgba(210,153,34,.8)}
+    .rp-fill.shiny{background:rgba(63,185,80,.85)}
+    .rp-val{font:10px "JetBrains Mono",monospace;text-align:right}
+    .rp-top{margin-top:7px;font:11px "JetBrains Mono",monospace}
+    .wf-row{display:grid;grid-template-columns:58px 1fr 62px;align-items:center;gap:8px;margin-bottom:6px}
+    .wf-label{font:10px "JetBrains Mono",monospace;color:var(--muted)}
+    .wf-track{height:8px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid var(--border)}
+    .wf-bar{height:100%}
+    .wf-bar.up{background:rgba(63,185,80,.85)}
+    .wf-bar.down{background:rgba(248,81,73,.85)}
+    .wf-bar.neutral{background:rgba(210,153,34,.85)}
+    .wf-value{font:10px "JetBrains Mono",monospace;text-align:right}
+    .wf-total{border-top:1px solid var(--border);margin-top:6px;padding-top:6px;display:flex;justify-content:space-between;font:11px "JetBrains Mono",monospace}
+    .conf-chart{height:72px;border:1px solid var(--border);border-radius:4px;background:rgba(255,255,255,.01);padding:7px;margin-bottom:8px}
+    .conf-chart svg{width:100%;height:100%}
+    .conf-line{fill:none;stroke:var(--accent);stroke-width:1.8}
+    .conf-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    .conf-item{background:rgba(255,255,255,.01);border:1px solid var(--border);border-radius:4px;padding:7px}
+    .conf-l{font-size:10px;color:#5f6b77;text-transform:uppercase;margin-bottom:4px}
+    .conf-v{font:700 13px "JetBrains Mono",monospace}
+    .health{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:10px}
+    .health-title{font-size:10px;color:#5f6b77;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+    .health-row{display:grid;grid-template-columns:56px 1fr 58px;align-items:center;gap:8px;margin-bottom:6px}
+    .health-name{font:10px "JetBrains Mono",monospace;color:var(--muted)}
+    .health-status{font:700 10px "JetBrains Mono",monospace}
+    .health-score{font:10px "JetBrains Mono",monospace;text-align:right;color:var(--muted)}
+    .health-meta{border-top:1px solid var(--border);margin-top:6px;padding-top:6px;display:grid;gap:4px;font:10px "JetBrains Mono",monospace;color:var(--muted)}
+    .comp{display:grid;gap:8px;margin-bottom:12px}
+    .comp .row{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:8px}
+    .c-name{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+    .comp svg{width:100%;height:48px}
+    .c-stock{fill:none;stroke:var(--blue);stroke-width:1.8}.c-crypto{fill:none;stroke:var(--yellow);stroke-width:1.8}.c-vix{fill:none;stroke:var(--green);stroke-width:1.8}
+    .weights{display:grid;gap:8px}
+    .w{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-size:11px}
+    .w-name{display:flex;gap:8px;align-items:center}
+    .wd{width:8px;height:8px;border-radius:2px}.wv{font:600 11px "JetBrains Mono",monospace;color:var(--accent)}
+    .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-bottom:12px}
+    .kpis.bt{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:12px}
+    .k{background:linear-gradient(180deg,rgba(22,27,34,.97),rgba(13,17,23,.97));border:1px solid var(--border);border-radius:6px;padding:9px}
+    .kl{font-size:10px;color:#5f6b77;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+    .kv{font:700 18px "JetBrains Mono",monospace;margin-bottom:3px}.kn{font-size:10px;color:var(--muted)}
+    .up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--yellow)}
+    .assets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+    .asset-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:11px}
+    .asset-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}
+    .asset-name{font-size:11px;font-weight:600}.asset-ticker{font:10px "JetBrains Mono",monospace;color:#5f6b77}
+    .asset-ma-badge{font:600 9px "JetBrains Mono",monospace;padding:3px 6px;border-radius:3px;text-transform:uppercase}
+    .asset-ma-badge.above{background:rgba(63,185,80,.15);color:var(--green)}.asset-ma-badge.below{background:rgba(248,81,73,.15);color:var(--red)}
+    .asset-score{font:700 21px "JetBrains Mono",monospace;margin-bottom:4px}
+    .asset-score.bullish{color:var(--green)}.asset-score.neutral{color:var(--yellow)}.asset-score.bearish{color:var(--red)}
+    .spark{height:22px;margin:5px 0 6px}.spark svg{width:100%;height:100%}.spark-line{fill:none;stroke-width:1.5}
+    .spark-line.up{stroke:var(--green)}.spark-line.down{stroke:var(--red)}.spark-line.flat{stroke:var(--yellow)}
+    .asset-meta{display:flex;justify-content:space-between;font-size:10px;color:#5f6b77}
+    .breadth{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px}
+    .b-title{font-size:10px;color:#5f6b77;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .bar{display:flex;height:14px;border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
+    .bull{background:rgba(63,185,80,.8);width:{BULL_PCT}%}.neu{background:rgba(210,153,34,.7);width:{NEUTRAL_PCT}%}.bear{background:rgba(248,81,73,.8);width:{BEAR_PCT}%}
+    .b-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font:10px "JetBrains Mono",monospace;color:var(--muted)}
+    .b-meta span{display:block;font-size:16px;font-weight:700;margin-top:3px}
+    .signals,.feed{display:grid;gap:8px}
+    .signal-row{display:flex;justify-content:space-between;gap:8px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:8px 9px}
+    .signal-name{font-size:11px;font-weight:600;margin-bottom:2px}
+    .signal-detail{font-size:10px;color:var(--muted)}
+    .signal-value{font:700 12px "JetBrains Mono",monospace;text-transform:uppercase}
+    .history-item{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px}
+    .history-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .history-time{font:10px "JetBrains Mono",monospace;color:#5f6b77}
+    .history-badge{font:600 9px "JetBrains Mono",monospace;padding:3px 8px;border-radius:3px;text-transform:uppercase}
+    .history-badge.greed{background:rgba(63,185,80,.15);color:var(--green)}
+    .history-badge.fear{background:rgba(248,81,73,.15);color:var(--red)}
+    .history-badge.neutral{background:rgba(210,153,34,.15);color:var(--yellow)}
+    .history-score{font:700 19px "JetBrains Mono",monospace}
+    .history-label{font-size:11px;color:var(--muted)}
+    .bench{margin-top:8px;padding-top:10px;border-top:1px solid var(--border)}
+    .br{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0}
+    .bn{color:var(--muted)}.bv{font:600 12px "JetBrains Mono",monospace}
+    .footer{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:10px 20px;border-top:1px solid var(--border);background:var(--panel);font-size:11px;color:#5f6b77}
+    .footer a{color:var(--accent);text-decoration:none}
+    @media (max-width:1400px){.grid{grid-template-columns:270px 1fr 320px}.assets{grid-template-columns:repeat(3,minmax(0,1fr))}.kpis,.kpis.bt{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (max-width:1000px){.grid{grid-template-columns:1fr}.assets{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis,.kpis.bt{grid-template-columns:repeat(2,minmax(0,1fr))}.header,.footer{flex-direction:column;align-items:flex-start;gap:6px}}
+    @media (max-width:640px){.assets{grid-template-columns:1fr}.kpis,.kpis.bt{grid-template-columns:1fr}}
+  </style>
 </head>
-
 <body>
-    <header class="header">
-        <div class="header-left">
-            <div class="logo">
-                <div class="logo-icon">☁️</div>
-                <div>
-                    <div class="logo-text">Monarch Castle Technologies</div>
-                    <div class="logo-sub">Financial Intelligence</div>
-                </div>
-            </div>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">M</div>
+      <div>
+        <div class="name">Monarch Castle Technologies</div>
+        <div class="sub">Financial Intelligence</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <span>MODEL: CSI-ENGINE-V3</span>
+      <span>FEED: <span style="color:var(--green)">LIVE</span></span>
+      <span><span class="dot"></span> SYSTEM ONLINE</span>
+    </div>
+  </header>
+  <div class="tape"><div class="tape-track">{TICKER_TAPE}</div></div>
+
+  <main class="grid">
+    <section class="panel">
+      <div class="score-label">Monarch Global Mood</div>
+      <div class="score">{GLOBAL_SCORE}</div>
+      <div class="status" style="color:{STATUS_COLOR}">{GAUGE_LABEL}</div>
+
+      <div class="card gauge">
+        <div class="g-title">Sentiment Gauge</div>
+        <svg viewBox="0 0 220 130">
+          <path class="bg" d="M 30 110 A 80 80 0 0 1 190 110"></path>
+          <path class="fear" d="M 30 110 A 80 80 0 0 1 90 41"></path>
+          <path class="neu" d="M 90 41 A 80 80 0 0 1 150 41"></path>
+          <path class="grd" d="M 150 41 A 80 80 0 0 1 190 110"></path>
+          <g transform="translate(110,110) rotate({GAUGE_ROTATION})"><line class="needle" x1="0" y1="0" x2="0" y2="-74"></line></g>
+          <circle class="cap" cx="110" cy="110" r="5"></circle>
+        </svg>
+        <div class="g-scale"><span>0 FEAR</span><span>50 NEUTRAL</span><span>100 GREED</span></div>
+      </div>
+
+      <div class="mini">
+        <div class="s-title">48H Composite Trend</div>
+        <div class="box">
+          <svg viewBox="0 0 200 80" preserveAspectRatio="none">
+            <line class="gl" x1="0" y1="20" x2="200" y2="20"></line>
+            <line class="gl" x1="0" y1="40" x2="200" y2="40"></line>
+            <line class="gl" x1="0" y1="60" x2="200" y2="60"></line>
+            <polyline class="ma" points="{MA_CHART_POINTS}"></polyline>
+            <polyline class="line" points="{INDEX_CHART_POINTS}"></polyline>
+          </svg>
         </div>
-        <div class="header-right">
-            <span>MODEL: CSI-ENGINE-V2</span>
-            <span>DATA: <span style="color: var(--accent-yellow)">UPDATING...</span></span>
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span>SYSTEM ONLINE</span>
-            </div>
+        <div class="legend"><span>Index</span><span>Smoothed</span></div>
+      </div>
+
+      <div class="forecast">
+        <div class="s-title">24H Forecast Path</div>
+        <div class="box">
+          <svg viewBox="0 0 200 75" preserveAspectRatio="none">
+            <polyline class="f-upper" points="{FORECAST_HIGH_POINTS}"></polyline>
+            <polyline class="f-lower" points="{FORECAST_LOW_POINTS}"></polyline>
+            <polyline class="f-actual" points="{FORECAST_ACTUAL_POINTS}"></polyline>
+            <polyline class="f-proj" points="{FORECAST_LINE_POINTS}"></polyline>
+          </svg>
         </div>
-    </header>
-
-    <main class="main-grid">
-        <!-- Left Panel -->
-        <div class="panel">
-            <div class="index-display">
-                <div class="index-label">Composite Sentiment Index</div>
-                <div class="index-score">{GLOBAL_SCORE}</div>
-                <div class="index-status" style="color: {STATUS_COLOR}">
-                    {GAUGE_LABEL}
-                </div>
-            </div>
-
-            <div class="mini-chart">
-                <div class="mini-chart-title">48H Trend & Forecast</div>
-                <div class="chart-container">
-                    <svg class="chart-svg" viewBox="0 0 200 80" preserveAspectRatio="none">
-                        <!-- Grid lines -->
-                        <line class="chart-grid-line" x1="0" y1="20" x2="200" y2="20" />
-                        <line class="chart-grid-line" x1="0" y1="40" x2="200" y2="40" />
-                        <line class="chart-grid-line" x1="0" y1="60" x2="200" y2="60" />
-                        <!-- MA line -->
-                        <polyline class="chart-ma-line" points="{MA_CHART_POINTS}" />
-                        <!-- Index line -->
-                        <polyline class="chart-line" points="{INDEX_CHART_POINTS}" />
-                    </svg>
-                </div>
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <div class="legend-line index"></div>Index
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-line ma" style="background: var(--accent-yellow)"></div>60-Day MA
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-header">Scoring Weights</div>
-            <div class="weight-list">
-                <div class="weight-item">
-                    <div class="weight-name">
-                        <div class="weight-dot" style="background: var(--accent-blue)"></div>Risk Assets
-                    </div>
-                    <div class="weight-value">70%</div>
-                </div>
-                <div class="weight-item">
-                    <div class="weight-name">
-                        <div class="weight-dot" style="background: var(--accent-yellow)"></div>Fear Assets
-                    </div>
-                    <div class="weight-value">30%</div>
-                </div>
-                <div class="weight-item">
-                    <div class="weight-name">
-                        <div class="weight-dot" style="background: var(--accent-green)"></div>US Markets
-                    </div>
-                    <div class="weight-value">{US_WEIGHT}%</div>
-                </div>
-                <div class="weight-item">
-                    <div class="weight-name">
-                        <div class="weight-dot" style="background: var(--accent-cyan)"></div>Asia Markets
-                    </div>
-                    <div class="weight-value">{ASIA_WEIGHT}%</div>
-                </div>
-                <div class="weight-item">
-                    <div class="weight-name">
-                        <div class="weight-dot" style="background: var(--accent-orange)"></div>Europe Markets
-                    </div>
-                    <div class="weight-value">{EU_WEIGHT}%</div>
-                </div>
-            </div>
+        <div class="f-meta">
+          <span class="f-target">Base: {FORECAST_TARGET}</span>
+          <span class="f-delta {FORECAST_CLASS}">{FORECAST_DELTA} ({FORECAST_REGIME})</span>
         </div>
-
-        <!-- Center Panel -->
-        <div class="panel center-panel">
-            <div class="assets-header">
-                <div class="panel-header" style="margin-bottom: 0; border: 0; padding: 0;">Asset Performance vs 60-Day
-                    MA</div>
-            </div>
-            <div class="assets-grid">
-                {ASSET_CARDS}
-            </div>
+        <div class="f-meta-2">
+          <span>Bear {FORECAST_BEAR_TARGET} | Bull {FORECAST_BULL_TARGET}</span>
+          <span>Spread {FORECAST_SPREAD}</span>
         </div>
+      </div>
 
-        <!-- Right Panel -->
-        <div class="panel">
-            <div class="panel-header">Historical Feed</div>
-            <div class="history-feed">
-                {HISTORY_ITEMS}
-            </div>
-
-            <div class="benchmark-section">
-                <div class="panel-header">Benchmark Comparison</div>
-                <div class="benchmark-row">
-                    <span class="benchmark-name">CNN Fear & Greed</span>
-                    <span class="benchmark-value" style="color: var(--accent-cyan)">{CNN_SCORE}</span>
-                </div>
-                <div class="benchmark-row">
-                    <span class="benchmark-name">Crypto F&G</span>
-                    <span class="benchmark-value" style="color: var(--accent-yellow)">{CRYPTO_SCORE}</span>
-                </div>
-                <div class="benchmark-row">
-                    <span class="benchmark-name">Gap vs CNN</span>
-                    <span class="benchmark-value" style="color: {GAP_COLOR}">{CNN_GAP}</span>
-                </div>
-            </div>
+      <div class="regime-prob">
+        <div class="rp-title">Regime Transition 24H</div>
+        <div class="rp-grid">
+          <div class="rp-row">
+            <span class="rp-label">STORMY</span>
+            <div class="rp-track"><div class="rp-fill stormy" style="width:{REGIME_P_STORMY}%"></div></div>
+            <span class="rp-val down">{REGIME_P_STORMY}%</span>
+          </div>
+          <div class="rp-row">
+            <span class="rp-label">CLOUDY</span>
+            <div class="rp-track"><div class="rp-fill cloudy" style="width:{REGIME_P_CLOUDY}%"></div></div>
+            <span class="rp-val neutral">{REGIME_P_CLOUDY}%</span>
+          </div>
+          <div class="rp-row">
+            <span class="rp-label">SHINY</span>
+            <div class="rp-track"><div class="rp-fill shiny" style="width:{REGIME_P_SHINY}%"></div></div>
+            <span class="rp-val up">{REGIME_P_SHINY}%</span>
+          </div>
         </div>
+        <div class="rp-top {REGIME_TOP_CLASS}">Most Likely: {REGIME_TOP}</div>
+      </div>
 
-        <footer class="footer">
-            <span>CSI-008 · <a href="https://akgularda.github.io/MonarchCastle">Monarch Castle Technologies</a></span>
-            <span>Last Update: {UPDATED_TIME} UTC</span>
-        </footer>
-    </main>
+      <div class="waterfall">
+        <div class="wf-title">Forecast Driver Waterfall</div>
+        {WATERFALL_ROWS}
+        <div class="wf-total">
+          <span>Total Delta</span>
+          <span class="{WATERFALL_TOTAL_CLASS}">{WATERFALL_TOTAL}</span>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div class="row"><div class="c-name">Stock Sentiment</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-stock" points="{STOCK_POINTS}"></polyline></svg></div>
+        <div class="row"><div class="c-name">Crypto Sentiment</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-crypto" points="{CRYPTO_POINTS}"></polyline></svg></div>
+        <div class="row"><div class="c-name">VIX Inverse</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-vix" points="{VIX_POINTS}"></polyline></svg></div>
+      </div>
+
+      <div class="h">Formula and Allocation</div>
+      <div class="weights">
+        <div class="w"><div class="w-name"><div class="wd" style="background:var(--blue)"></div>Stock Component</div><div class="wv">40.0%</div></div>
+        <div class="w"><div class="w-name"><div class="wd" style="background:var(--yellow)"></div>Crypto Component</div><div class="wv">30.0%</div></div>
+        <div class="w"><div class="w-name"><div class="wd" style="background:var(--green)"></div>Inverse VIX</div><div class="wv">30.0%</div></div>
+        <div class="w"><div class="w-name"><div class="wd" style="background:var(--accent)"></div>US Basket</div><div class="wv">{US_WEIGHT}%</div></div>
+        <div class="w"><div class="w-name"><div class="wd" style="background:#db6d28"></div>Asia Basket</div><div class="wv">{ASIA_WEIGHT}%</div></div>
+        <div class="w"><div class="w-name"><div class="wd" style="background:var(--red)"></div>Europe Basket</div><div class="wv">{EU_WEIGHT}%</div></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="kpis">
+        <div class="k"><div class="kl">1D Delta</div><div class="kv {KPI_DAY_CLASS}">{KPI_DAY_DELTA}</div><div class="kn">Day-over-day mood shift</div></div>
+        <div class="k"><div class="kl">7D Delta</div><div class="kv {KPI_WEEK_CLASS}">{KPI_WEEK_DELTA}</div><div class="kn">Weekly regime movement</div></div>
+        <div class="k"><div class="kl">Intraday Vol</div><div class="kv {KPI_VOL_CLASS}">{KPI_VOL}</div><div class="kn">24h standard deviation</div></div>
+        <div class="k"><div class="kl">Component Spread</div><div class="kv {KPI_DISPERSION_CLASS}">{KPI_DISPERSION}</div><div class="kn">Stock/Crypto/VIX divergence</div></div>
+        <div class="k"><div class="kl">Momentum 6H</div><div class="kv {KPI_MOMENTUM_CLASS}">{KPI_MOMENTUM}</div><div class="kn">Short-horizon acceleration</div></div>
+      </div>
+
+      <div class="kpis bt">
+        <div class="k"><div class="kl">Backtest MAE 1H</div><div class="kv">{BT_MAE_1H}</div><div class="kn">Rolling out-of-sample error</div></div>
+        <div class="k"><div class="kl">Backtest MAE 6H</div><div class="kv">{BT_MAE_6H}</div><div class="kn">Mid-horizon forecast error</div></div>
+        <div class="k"><div class="kl">Backtest MAE 24H</div><div class="kv {BT_MAE_24H_CLASS}">{BT_MAE_24H}</div><div class="kn">Daily horizon error</div></div>
+        <div class="k"><div class="kl">Direction Hit 24H</div><div class="kv {BT_HIT_24H_CLASS}">{BT_HIT_24H}%</div><div class="kn">N={BT_WINDOWS} rolling windows</div></div>
+      </div>
+
+      <div class="conf">
+        <div class="conf-title">Forecast Confidence Dashboard</div>
+        <div class="conf-chart">
+          <svg viewBox="0 0 200 55" preserveAspectRatio="none">
+            <polyline class="conf-line" points="{BT_ERROR_POINTS}"></polyline>
+          </svg>
+        </div>
+        <div class="conf-grid">
+          <div class="conf-item">
+            <div class="conf-l">Coverage 24H</div>
+            <div class="conf-v {BT_COVERAGE_24H_CLASS}">{BT_COVERAGE_24H}%</div>
+          </div>
+          <div class="conf-item">
+            <div class="conf-l">Bias 24H</div>
+            <div class="conf-v {BT_BIAS_24H_CLASS}">{BT_BIAS_24H}</div>
+          </div>
+          <div class="conf-item">
+            <div class="conf-l">Error Drift</div>
+            <div class="conf-v {BT_DRIFT_24H_CLASS}">{BT_DRIFT_24H}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="h" style="margin-bottom:10px">Asset Performance vs 60-Day MA</div>
+      <div class="assets">{ASSET_CARDS}</div>
+
+      <div class="breadth">
+        <div class="b-title">Market Breadth Snapshot</div>
+        <div class="bar"><div class="bull"></div><div class="neu"></div><div class="bear"></div></div>
+        <div class="b-meta">
+          <div>Bullish <span>{BULL_COUNT}</span></div>
+          <div>Neutral <span>{NEUTRAL_COUNT}</span></div>
+          <div>Bearish <span>{BEAR_COUNT}</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="health">
+        <div class="health-title">Feed Reliability</div>
+        {HEALTH_ROWS}
+        <div class="health-meta">
+          <div>Overall Score: <span class="{HEALTH_OVERALL_CLASS}">{HEALTH_OVERALL_SCORE}%</span></div>
+          <div>Data Age: <span class="{HEALTH_AGE_CLASS}">{HEALTH_AGE_MIN} min</span></div>
+          <div>Fallback Rate: {HEALTH_FALLBACK_RATE}% | Failure Rate: {HEALTH_FAILURE_RATE}%</div>
+        </div>
+      </div>
+
+      <div class="h">Signal Board</div>
+      <div class="signals">{SIGNAL_ROWS}</div>
+
+      <div class="h" style="margin-top:14px">Historical Feed</div>
+      <div class="feed">{HISTORY_ITEMS}</div>
+
+      <div class="bench">
+        <div class="h">Benchmark Comparison</div>
+        <div class="br"><span class="bn">CNN Fear and Greed</span><span class="bv" style="color:var(--accent)">{CNN_SCORE}</span></div>
+        <div class="br"><span class="bn">Crypto Fear and Greed</span><span class="bv" style="color:var(--yellow)">{CRYPTO_SCORE}</span></div>
+        <div class="br"><span class="bn">Inverse VIX Score</span><span class="bv" style="color:var(--green)">{VIX_INV_SCORE}</span></div>
+        <div class="br"><span class="bn">Gap vs CNN</span><span class="bv" style="color:{GAP_COLOR}">{CNN_GAP}</span></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>CSI-008 | <a href="https://akgularda.github.io/MonarchCastle">Monarch Castle Technologies</a></span>
+      <span>Last Update: {UPDATED_TIME} UTC</span>
+    </footer>
+  </main>
 </body>
-
 </html>

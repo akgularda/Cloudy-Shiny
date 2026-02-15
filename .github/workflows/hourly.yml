@@ -1,10 +1,20 @@
-name: Hourly Cloudy & Shiny Update
+name: Hourly CloudyShiny Dashboard Update
 
 on:
   schedule:
-    # Runs at minute 0 past every hour
-    - cron: '0 * * * *'
+    # Exact 50-minute cadence across a 5-hour repeating cycle:
+    # 00:00 -> 00:50 -> 01:40 -> 02:30 -> 03:20 -> 04:10 -> 05:00 ...
+    - cron: '0 0,5,10,15,20 * * *'
+    - cron: '50 0,5,10,15,20 * * *'
+    - cron: '40 1,6,11,16,21 * * *'
+    - cron: '30 2,7,12,17,22 * * *'
+    - cron: '20 3,8,13,18,23 * * *'
+    - cron: '10 4,9,14,19 * * *'
   workflow_dispatch: # Allows manual run from Actions tab
+
+concurrency:
+  group: cloudyshiny-hourly-update
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -12,30 +22,91 @@ permissions:
 jobs:
   update-index:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-    - name: Set up Python 3.10
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.10"
+        python-version: "3.11"
+        cache: pip
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r CloudyShiny/requirements.txt
+        pip install -r requirements.txt
 
-    - name: Run Index Engine
+    - name: Fetch latest sentiment data
       run: |
-        cd CloudyShiny
-        python cloudy_shiny_index.py
-        
-    - name: Commit and Push changes
+        set +e
+        tracker_ok=0
+        for attempt in 1 2 3; do
+          echo "sentiment_tracker.py attempt $attempt"
+          if python sentiment_tracker.py; then
+            tracker_ok=1
+            break
+          fi
+          [ "$attempt" -eq 3 ] && break
+          sleep $((attempt * 20))
+        done
+        if [ "$tracker_ok" -ne 1 ]; then
+          echo "Warning: sentiment_tracker.py failed after retries; proceeding with existing sentiment_data.csv"
+          if [ ! -f sentiment_data.csv ]; then
+            echo "sentiment_data.csv does not exist, cannot continue."
+            exit 1
+          fi
+        fi
+        set -e
+
+    - name: Build static index.html
       run: |
+        set -e
+        for attempt in 1 2; do
+          echo "build_index.py attempt $attempt"
+          if python build_index.py; then
+            break
+          fi
+          if [ "$attempt" -eq 2 ]; then
+            echo "build_index.py failed after 2 attempts"
+            exit 1
+          fi
+          sleep 10
+        done
+
+    - name: Commit and push changes
+      env:
+        BRANCH_NAME: ${{ github.ref_name }}
+      run: |
+        set -e
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add index.html history_chart.png CloudyShiny/weather_history.csv
-        git commit -m "Auto-update: $(date -u)" || echo "No changes to commit"
-        git push
+        git config --global pull.rebase true
+
+        if [ -z "$BRANCH_NAME" ]; then
+          BRANCH_NAME="main"
+        fi
+
+        git add index.html sentiment_data.csv feed_health.csv
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+
+        git commit -m "Auto-update: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+
+        for attempt in 1 2 3; do
+          echo "Push attempt $attempt"
+          if git pull --rebase origin "$BRANCH_NAME" && git push origin "HEAD:$BRANCH_NAME"; then
+            exit 0
+          fi
+          git rebase --abort || true
+          sleep $((attempt * 10))
+        done
+
+        echo "Failed to push after retries"
+        exit 1
