@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Monarch Castle logo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14345A"/>
+      <stop offset="100%" stop-color="#0D223F"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="62" fill="url(#bg)"/>
+  <path d="M30 95 A50 50 0 0 1 98 95" fill="none" stroke="#E8EEF4" stroke-width="7" stroke-linecap="round"/>
+  <path d="M64 24l7 0 0 9 10 0 0-9 7 0 0 22-7 0c-6-3-12-4-17-4s-11 1-17 4l0-22 7 0 0 9 10 0z" fill="#F4F7FA"/>
+  <path d="M44 41l0 13-10 0 0 56c8 8 17 12 30 12s22-4 30-12l0-56-10 0 0-13-20 0 0 17-8 0 0-17z" fill="#F4F7FA"/>
+  <rect x="60" y="47" width="8" height="13" rx="3" fill="#0D223F"/>
+  <path d="M54 122l20 0 0-17c0-7-4-11-10-11s-10 4-10 11z" fill="#0D223F"/>
+  <text x="64" y="82" text-anchor="middle" fill="#0D223F" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700">MC</text>
+</svg>

@@ -15,7 +15,8 @@
     body{font-family:Inter,-apple-system,sans-serif;background:var(--bg);color:var(--txt)}
     .header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid var(--border);background:var(--panel)}
     .brand{display:flex;gap:10px;align-items:center}
-    .logo{width:28px;height:28px;border-radius:4px;background:var(--accent);color:#071117;display:flex;align-items:center;justify-content:center;font:700 13px "JetBrains Mono",monospace}
+    .logo{width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+    .logo img{width:100%;height:100%;display:block;object-fit:contain}
     .name{font:700 14px "JetBrains Mono",monospace;letter-spacing:.05em;text-transform:uppercase}
     .sub{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
     .hdr-right{display:flex;gap:18px;font:11px "JetBrains Mono",monospace;color:var(--muted)}
@@ -35,11 +36,11 @@
     .card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px}
     .g-title,.s-title{font-size:10px;color:#5f6b77;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
     .gauge{margin:12px 0}
-    .gauge svg{width:100%;height:128px;display:block}
-    .gauge .bg{stroke:var(--border);stroke-width:10;fill:none}
-    .gauge .fear{stroke:var(--red);stroke-width:10;fill:none;stroke-linecap:round}
-    .gauge .neu{stroke:var(--yellow);stroke-width:10;fill:none;stroke-linecap:round}
-    .gauge .grd{stroke:var(--green);stroke-width:10;fill:none;stroke-linecap:round}
+    .gauge svg{width:100%;height:132px;display:block}
+    .gauge .bg{stroke:var(--border);stroke-width:11;fill:none}
+    .gauge .fear{stroke:var(--red);stroke-width:11;fill:none;stroke-linecap:butt}
+    .gauge .neu{stroke:var(--yellow);stroke-width:11;fill:none;stroke-linecap:butt}
+    .gauge .grd{stroke:var(--green);stroke-width:11;fill:none;stroke-linecap:butt}
     .needle{stroke:var(--accent);stroke-width:3;stroke-linecap:round}
     .cap{fill:var(--accent)}
     .g-scale{display:flex;justify-content:space-between;font:9px "JetBrains Mono",monospace;color:#5f6b77;margin-top:-6px}
@@ -103,6 +104,9 @@
     .w{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-size:11px}
     .w-name{display:flex;gap:8px;align-items:center}
     .wd{width:8px;height:8px;border-radius:2px}.wv{font:600 11px "JetBrains Mono",monospace;color:var(--accent)}
+    .method{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:10px}
+    .method-formula{font:600 11px "JetBrains Mono",monospace;color:var(--accent);margin-bottom:8px;word-break:break-word}
+    .method-line{font-size:11px;color:var(--muted);line-height:1.45;margin-bottom:4px}
     .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-bottom:12px}
     .kpis.bt{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:12px}
     .k{background:linear-gradient(180deg,rgba(22,27,34,.97),rgba(13,17,23,.97));border:1px solid var(--border);border-radius:6px;padding:9px}
@@ -153,7 +157,7 @@
 <body>
   <header class="header">
     <div class="brand">
-      <div class="logo">M</div>
+      <div class="logo"><img src="logo.svg" alt="Monarch Castle logo"></div>
       <div>
         <div class="name">Monarch Castle Technologies</div>
         <div class="sub">Financial Intelligence</div>
@@ -169,18 +173,18 @@
 
   <main class="grid">
     <section class="panel">
-      <div class="score-label">Monarch Global Mood</div>
+      <div class="score-label">Cloudy&Shiny Index</div>
       <div class="score">{GLOBAL_SCORE}</div>
       <div class="status" style="color:{STATUS_COLOR}">{GAUGE_LABEL}</div>
 
       <div class="card gauge">
         <div class="g-title">Sentiment Gauge</div>
         <svg viewBox="0 0 220 130">
-          <path class="bg" d="M 30 110 A 80 80 0 0 1 190 110"></path>
-          <path class="fear" d="M 30 110 A 80 80 0 0 1 90 41"></path>
-          <path class="neu" d="M 90 41 A 80 80 0 0 1 150 41"></path>
-          <path class="grd" d="M 150 41 A 80 80 0 0 1 190 110"></path>
-          <g transform="translate(110,110) rotate({GAUGE_ROTATION})"><line class="needle" x1="0" y1="0" x2="0" y2="-74"></line></g>
+          <path class="bg" d="M 20 110 A 90 90 0 0 1 200 110"></path>
+          <path class="fear" d="M 20 110 A 90 90 0 0 1 200 110" style="stroke-dasharray:94.2 188.5;stroke-dashoffset:0"></path>
+          <path class="neu" d="M 20 110 A 90 90 0 0 1 200 110" style="stroke-dasharray:94.2 188.5;stroke-dashoffset:-94.2"></path>
+          <path class="grd" d="M 20 110 A 90 90 0 0 1 200 110" style="stroke-dasharray:94.2 188.5;stroke-dashoffset:-188.4"></path>
+          <g transform="translate(110,110) rotate({GAUGE_ROTATION})"><line class="needle" x1="0" y1="0" x2="0" y2="-82"></line></g>
           <circle class="cap" cx="110" cy="110" r="5"></circle>
         </svg>
         <div class="g-scale"><span>0 FEAR</span><span>50 NEUTRAL</span><span>100 GREED</span></div>
@@ -257,7 +261,13 @@
         <div class="row"><div class="c-name">VIX Inverse</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-vix" points="{VIX_POINTS}"></polyline></svg></div>
       </div>
 
-      <div class="h">Formula and Allocation</div>
+      <div class="h">Methodology and Weights</div>
+      <div class="method">
+        <div class="method-formula">Score = (Stock x 0.40) + (Crypto x 0.30) + ((100 - VIX norm) x 0.30)</div>
+        <div class="method-line">Stock sentiment and Crypto fear/greed are normalized to 0-100.</div>
+        <div class="method-line">VIX is normalized to 0-100 over rolling history, then inverted so higher means risk-on.</div>
+        <div class="method-line">Regime bands: 0-20 STORMY, 21-80 CLOUDY, 81-100 SHINY.</div>
+      </div>
       <div class="weights">
         <div class="w"><div class="w-name"><div class="wd" style="background:var(--blue)"></div>Stock Component</div><div class="wv">40.0%</div></div>
         <div class="w"><div class="w-name"><div class="wd" style="background:var(--yellow)"></div>Crypto Component</div><div class="wv">30.0%</div></div>
@@ -339,16 +349,16 @@
       <div class="feed">{HISTORY_ITEMS}</div>
 
       <div class="bench">
-        <div class="h">Benchmark Comparison</div>
-        <div class="br"><span class="bn">CNN Fear and Greed</span><span class="bv" style="color:var(--accent)">{CNN_SCORE}</span></div>
+        <div class="h">Component Snapshot</div>
+        <div class="br"><span class="bn">Stock Sentiment</span><span class="bv" style="color:var(--accent)">{STOCK_SCORE}</span></div>
         <div class="br"><span class="bn">Crypto Fear and Greed</span><span class="bv" style="color:var(--yellow)">{CRYPTO_SCORE}</span></div>
         <div class="br"><span class="bn">Inverse VIX Score</span><span class="bv" style="color:var(--green)">{VIX_INV_SCORE}</span></div>
-        <div class="br"><span class="bn">Gap vs CNN</span><span class="bv" style="color:{GAP_COLOR}">{CNN_GAP}</span></div>
+        <div class="br"><span class="bn">Composite - Stock Gap</span><span class="bv" style="color:{GAP_COLOR}">{STOCK_GAP}</span></div>
       </div>
     </section>
 
     <footer class="footer">
-      <span>CSI-008 | <a href="https://akgularda.github.io/MonarchCastle">Monarch Castle Technologies</a></span>
+      <span>Cloudy&Shiny Index | Monarch Castle Technologies</span>
       <span>Last Update: {UPDATED_TIME} UTC</span>
     </footer>
   </main>

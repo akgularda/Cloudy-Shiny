@@ -4,6 +4,7 @@ import time
 from pathlib import Path
 from typing import Dict, Optional, Tuple
 
+import pandas as pd
 import requests
 import yfinance as yf
 
@@ -11,19 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_FILE = BASE_DIR / "sentiment_data.csv"
 HEALTH_FILE = BASE_DIR / "feed_health.csv"
 
-CNN_URL = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
-CNN_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/120.0.0.0 Safari/537.36"
-    ),
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Referer": "https://edition.cnn.com/markets/fear-and-greed",
-    "Origin": "https://edition.cnn.com",
-}
-
+STOCK_TICKERS = ("SPY", "QQQ")
+STOCK_WEIGHTS = {"SPY": 0.6, "QQQ": 0.4}
+STOCK_PERIOD = "9mo"
+STOCK_MA_WINDOW = 50
+RSI_WINDOW = 14
 CRYPTO_URL = "https://api.alternative.me/fng/?limit=1&format=json"
 VIX_SYMBOL = "^VIX"
 VIX_MIN_DEFAULT = 10.0
@@ -81,15 +74,107 @@ def request_json(url: str, headers: Optional[Dict[str, str]] = None) -> Dict:
     raise last_error
 
 
-def fetch_cnn_fear_greed() -> float:
-    payload = request_json(CNN_URL, headers=CNN_HEADERS)
-    fear_block = payload.get("fear_and_greed", {})
-    score = fear_block.get("score") if isinstance(fear_block, dict) else fear_block
-    if score is None:
-        score = payload.get("score")
-    if score is None:
-        raise ValueError("CNN response missing fear_and_greed score")
-    return float(score)
+def fetch_stock_history(period: str = STOCK_PERIOD):
+    try:
+        return yf.download(
+            tickers=list(STOCK_TICKERS),
+            period=period,
+            interval="1d",
+            auto_adjust=False,
+            progress=False,
+            threads=False,
+        )
+    except Exception:
+        return None
+
+
+def extract_stock_prices(data) -> pd.DataFrame:
+    if data is None or data.empty:
+        return pd.DataFrame()
+
+    if isinstance(data.columns, pd.MultiIndex):
+        levels = set(data.columns.get_level_values(0))
+        if "Adj Close" in levels:
+            prices = data["Adj Close"].copy()
+        elif "Close" in levels:
+            prices = data["Close"].copy()
+        else:
+            return pd.DataFrame()
+    else:
+        close_col = "Adj Close" if "Adj Close" in data.columns else "Close" if "Close" in data.columns else None
+        if close_col is None:
+            return pd.DataFrame()
+        prices = data[[close_col]].copy()
+        prices.columns = [STOCK_TICKERS[0]]
+
+    if isinstance(prices, pd.Series):
+        prices = prices.to_frame(name=STOCK_TICKERS[0])
+
+    return prices.sort_index().ffill()
+
+
+def compute_rsi(series: pd.Series, window: int = RSI_WINDOW) -> Optional[float]:
+    clean = series.dropna()
+    if len(clean) < window + 1:
+        return None
+
+    delta = clean.diff()
+    gain = delta.clip(lower=0).rolling(window=window).mean()
+    loss = (-delta.clip(upper=0)).rolling(window=window).mean()
+    rs = gain / loss.replace(0, pd.NA)
+    rsi = 100 - (100 / (1 + rs))
+    rsi = rsi.dropna()
+    if rsi.empty:
+        return None
+    return float(rsi.iloc[-1])
+
+
+def score_stock_series(series: pd.Series) -> Optional[float]:
+    clean = series.dropna()
+    if len(clean) < max(STOCK_MA_WINDOW, RSI_WINDOW) + 1:
+        return None
+
+    latest = float(clean.iloc[-1])
+    ma = clean.rolling(STOCK_MA_WINDOW).mean().iloc[-1]
+    if ma is None or pd.isna(ma) or ma == 0:
+        return None
+
+    deviation = (latest - float(ma)) / float(ma)
+    deviation = max(-0.12, min(0.12, deviation))
+    score = 50.0 + deviation * 300.0
+
+    rsi = compute_rsi(clean, RSI_WINDOW)
+    if rsi is not None:
+        if rsi > 70.0:
+            score -= min(12.0, (rsi - 70.0) * 0.7)
+        elif rsi < 30.0:
+            score += min(12.0, (30.0 - rsi) * 0.7)
+
+    return clamp(score, 0.0, 100.0)
+
+
+def fetch_stock_sentiment() -> float:
+    data = fetch_stock_history()
+    prices = extract_stock_prices(data)
+    if prices.empty:
+        raise ValueError("Stock price data unavailable")
+
+    weighted_scores: list[tuple[float, float]] = []
+    for ticker, weight in STOCK_WEIGHTS.items():
+        if ticker not in prices.columns:
+            continue
+        score = score_stock_series(prices[ticker])
+        if score is None:
+            continue
+        weighted_scores.append((score, float(weight)))
+
+    if not weighted_scores:
+        raise ValueError("Failed to compute stock sentiment score")
+
+    total_weight = sum(weight for _, weight in weighted_scores)
+    if total_weight <= 0:
+        raise ValueError("Invalid stock weights")
+    return sum(score * weight for score, weight in weighted_scores) / total_weight
 
 
 def fetch_crypto_fear_greed() -> float:
@@ -227,7 +312,7 @@ def coerce_float(value: Optional[object]) -> Optional[float]:
 
 def calculate_weighted_mood_score(stock: float, crypto: float, vix_normalized: float) -> float:
     """
-    Compute the required Monarch Global Mood score.
+    Compute the Cloudy&Shiny Index composite score.
 
     Formula:
         (stock * 0.4) + (crypto * 0.3) + ((100 - vix_normalized) * 0.3)
@@ -252,19 +337,19 @@ def main() -> int:
     crypto = None
     vix_value = None
     vix_norm = None
-    source_status = {"cnn": "missing", "crypto": "missing", "vix": "missing"}
-    source_latency_ms: Dict[str, Optional[float]] = {"cnn": None, "crypto": None, "vix": None}
+    source_status = {"stock": "missing", "crypto": "missing", "vix": "missing"}
+    source_latency_ms: Dict[str, Optional[float]] = {"stock": None, "crypto": None, "vix": None}
     errors: list[str] = []
 
     start = time.perf_counter()
     try:
-        stock = fetch_cnn_fear_greed()
-        source_status["cnn"] = "live"
+        stock = fetch_stock_sentiment()
+        source_status["stock"] = "live"
     except Exception as exc:
-        print(f"Warning: failed to fetch CNN Fear & Greed ({exc})")
-        errors.append(f"cnn:{exc}")
-        source_status["cnn"] = "failed"
-    source_latency_ms["cnn"] = (time.perf_counter() - start) * 1000.0
+        print(f"Warning: failed to fetch Stock Sentiment ({exc})")
+        errors.append(f"stock:{exc}")
+        source_status["stock"] = "failed"
+    source_latency_ms["stock"] = (time.perf_counter() - start) * 1000.0
 
     start = time.perf_counter()
     try:
@@ -290,10 +375,10 @@ def main() -> int:
     if stock is None:
         stock = coerce_float(latest.get("stock_fear_greed"))
         if stock is not None:
-            source_status["cnn"] = "fallback"
+            source_status["stock"] = "fallback"
             fallback_used = True
         else:
-            source_status["cnn"] = "missing"
+            source_status["stock"] = "missing"
     if crypto is None:
         crypto = coerce_float(latest.get("crypto_fear_greed"))
         if crypto is not None:
@@ -315,11 +400,11 @@ def main() -> int:
     health_timestamp = dt.datetime.now(dt.timezone.utc).isoformat()
     health_row = {
         "timestamp": health_timestamp,
-        "cnn_status": source_status["cnn"],
+        "cnn_status": source_status["stock"],
         "crypto_status": source_status["crypto"],
         "vix_status": source_status["vix"],
-        "cnn_latency_ms": round(source_latency_ms["cnn"], 1)
-        if source_latency_ms["cnn"] is not None
+        "cnn_latency_ms": round(source_latency_ms["stock"], 1)
+        if source_latency_ms["stock"] is not None
         else "",
         "crypto_latency_ms": round(source_latency_ms["crypto"], 1)
         if source_latency_ms["crypto"] is not None

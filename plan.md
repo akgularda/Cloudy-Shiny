@@ -1,82 +1,35 @@
-# CloudyShiny Fear and Greed Upgrade Plan
+# CloudyShiny Immediate Revision Plan
 
-## Goal
-Deliver a production-grade "Monarch Global Mood" module that:
-- Uses the required composite formula.
-- Preserves the current dashboard baseline look.
-- Adds deeper analytics and Bloomberg-terminal-like professionalism.
+## Objective
+Apply the requested production UI/data revisions without changing the overall terminal-style layout.
 
-## Constraints
-- Keep existing root files as the primary runtime:
-  - `sentiment_tracker.py`
-  - `app.py`
-  - `template.html`
-  - `sentiment_data.csv`
-  - `requirements.txt`
-- Maintain backward compatibility with existing CSV history.
-- Avoid breaking the current visual structure; enhance progressively.
+## Requested Changes
+1. Fix the Sentiment Gauge to a clean geometric half-circle.
+2. Replace the `M` badge with the provided MC logo.
+3. Add explicit methodology + weights text on-page.
+4. Rename score heading to `Cloudy&Shiny Index`.
+5. Remove CNN references from the page and data source usage.
+6. Replace footer label:
+   - From: `CSI-008 | Monarch Castle Technologies`
+   - To: `Cloudy&Shiny Index | Monarch Castle Technologies`
 
-## Formula and Regimes
-- Normalize each component to 0-100.
-- Composite score:
-  - `mood = (stock * 0.4) + (crypto * 0.3) + ((100 - vix_normalized) * 0.3)`
-- Regime mapping:
-  - `0-20`: STORMY
-  - `21-80`: CLOUDY
-  - `81-100`: SHINY
-
-## Implementation Phases
-
-### Phase 1: Documentation and Architecture
-- Create or refresh:
-  - `plan.md`
-  - `agents.md`
-  - `skills.md`
-- Define responsibilities, workflows, and quality gates.
-
-### Phase 2: Data Engine Hardening (`sentiment_tracker.py`)
-- Keep source coverage:
-  - CNN Fear and Greed
-  - alternative.me Crypto Fear and Greed
-  - VIX from `yfinance`
-- Enforce formula exactly as specified.
-- Keep resilient retries and fallback-to-last-row behavior.
-- Ensure consistent CSV schema and safe appends.
-
-### Phase 3: Analytics Layer (`app.py`)
-- Preserve current layout and style anchors.
-- Add richer metrics derived from history:
-  - Daily/weekly deltas
-  - Component dispersion
-  - Short-term volatility
-  - Momentum and trend context
-  - Risk-on vs risk-off framing
-- Prepare additional placeholders for template rendering.
-
-### Phase 4: Professional Terminal UI (`template.html`)
-- Keep existing panels and typography language.
-- Add Bloomberg-style density and polish:
-  - Primary gauge / speedometer emphasis
-  - Compact KPI strip
-  - Component micro-trends
-  - Market regime and diagnostics block
-  - Better hierarchy, spacing, and data readability
-- Keep responsive behavior for desktop and mobile.
-
-### Phase 5: Validation and Delivery
-- Run:
-  - `python sentiment_tracker.py`
-  - Streamlit syntax smoke check for `app.py`
-- Verify:
-  - CSV append works
-  - Dashboard renders with old and new rows
-  - No missing placeholder errors
-
-## Done Criteria
-- All required files exist and run.
-- Formula is implemented exactly.
-- Dashboard is visibly more professional while preserving base look.
-- Historical and component views are available for at least 7 days.
-- Project can be launched with:
-  - `python sentiment_tracker.py`
-  - `streamlit run app.py`
+## Implementation Plan
+1. `template.html`
+   - Update header logo markup to image asset.
+   - Rebuild gauge arc SVG to true semicircle segmentation.
+   - Add methodology formula block and keep weights panel.
+   - Rename all visible CNN labels to stock-centric wording.
+   - Update footer branding string exactly as requested.
+2. `logo.svg`
+   - Add a reusable logo asset for both static and Streamlit rendering.
+3. `sentiment_tracker.py`
+   - Replace external CNN fetch with internal stock sentiment model from market prices.
+   - Keep the same composite formula weights: `0.4 / 0.3 / 0.3`.
+   - Preserve fallback/retry behavior and CSV compatibility.
+4. `build_index.py` and `app.py`
+   - Align placeholders and labels (`STOCK_SCORE`, `STOCK_GAP`, `Stock` feed label).
+   - Ensure rendered HTML has no CNN wording.
+5. Validation
+   - `python sentiment_tracker.py`
+   - `python build_index.py`
+   - Confirm `index.html` contains updated heading, footer, methodology section, and cleaned labels.

@@ -1349,12 +1349,12 @@ history_items = [
 ]
 history_items_html = "\n".join(history_items) or "<div>NO HISTORY</div>"
 
-cnn_score = format_value(stock_latest, 1)
+stock_score = format_value(stock_latest, 1)
 crypto_score = format_value(crypto_latest, 1)
 vix_inverse_score = format_value(vix_inverse_latest, 1)
 gap_value = (score - stock_latest) if stock_latest is not None else None
 gap_color = "var(--accent-green)" if gap_value is not None and gap_value >= 0 else "var(--accent-red)"
-gap_label = format_signed(gap_value, 1)
+stock_gap_label = format_signed(gap_value, 1)
 forecast_detail = (
     f"Driver {forecast_driver} | "
     f"S {format_signed(forecast_contrib_stock, 1)} "
@@ -1366,7 +1366,7 @@ health_rows_html = "".join(
     [
         f"""
 <div class="health-row">
-  <span class="health-name">CNN</span>
+  <span class="health-name">Stock</span>
   <span class="health-status {health_status_class(str(health_metrics['cnn_status']))}">{health_status_label(str(health_metrics['cnn_status']))}</span>
   <span class="health-score">{format_value(health_metrics['cnn_score'], 1)}%</span>
 </div>
@@ -1486,10 +1486,10 @@ replacements = {
     "{HISTORY_ITEMS}": history_items_html,
     "{SIGNAL_ROWS}": signals_html,
     "{TICKER_TAPE}": ticker_tape_html,
-    "{CNN_SCORE}": cnn_score,
+    "{STOCK_SCORE}": stock_score,
     "{CRYPTO_SCORE}": crypto_score,
     "{VIX_INV_SCORE}": vix_inverse_score,
-    "{CNN_GAP}": gap_label,
+    "{STOCK_GAP}": stock_gap_label,
     "{GAP_COLOR}": gap_color,
     "{UPDATED_TIME}": updated_time,
     "{US_WEIGHT}": format_value(us_weight, 1),
