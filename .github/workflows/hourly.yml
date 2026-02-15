@@ -99,14 +99,19 @@ jobs:
 
         git commit -m "Auto-update: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
 
+        push_ok=0
         for attempt in 1 2 3; do
           echo "Push attempt $attempt"
           if git pull --rebase origin "$BRANCH_NAME" && git push origin "HEAD:$BRANCH_NAME"; then
-            exit 0
+            push_ok=1
+            break
           fi
+          echo "Attempt $attempt failed; retrying..."
           git rebase --abort || true
           sleep $((attempt * 10))
         done
 
-        echo "Failed to push after retries"
-        exit 1
+        if [ "$push_ok" -ne 1 ]; then
+          echo "Warning: failed to push after retries. Next scheduled run will retry."
+          exit 0
+        fi
