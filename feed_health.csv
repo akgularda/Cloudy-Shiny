@@ -290,3 +290,4 @@ timestamp,cnn_status,crypto_status,vix_status,cnn_latency_ms,crypto_latency_ms,v
 2026-02-25T03:29:48.500406+00:00,live,live,live,920.1,106.9,138.1,no,
 2026-02-25T04:05:32.950990+00:00,live,live,live,882.0,359.3,271.8,no,
 2026-02-25T04:32:02.904634+00:00,live,live,live,689.9,235.4,154.2,no,
+2026-02-25T05:04:11.280886+00:00,live,live,live,1040.9,344.5,461.9,no,
