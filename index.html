@@ -129,7 +129,7 @@
     .breadth{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px}
     .b-title{font-size:10px;color:#5f6b77;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
     .bar{display:flex;height:14px;border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
-    .bull{background:rgba(63,185,80,.8);width:33.3%}.neu{background:rgba(210,153,34,.7);width:58.3%}.bear{background:rgba(248,81,73,.8);width:8.3%}
+    .bull{background:rgba(63,185,80,.8);width:33.3%}.neu{background:rgba(210,153,34,.7);width:50.0%}.bear{background:rgba(248,81,73,.8);width:16.7%}
     .b-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font:10px "JetBrains Mono",monospace;color:var(--muted)}
     .b-meta span{display:block;font-size:16px;font-weight:700;margin-top:3px}
     .signals,.feed{display:grid;gap:8px}
@@ -200,7 +200,7 @@
 
 <div class="tape-item bullish">
   <span class="tape-ticker">^N225</span>
-  <span class="tape-score">82</span>
+  <span class="tape-score">79</span>
 </div>
 
 <div class="tape-item neutral">
@@ -210,7 +210,7 @@
 
 <div class="tape-item neutral">
   <span class="tape-ticker">^HSI</span>
-  <span class="tape-score">42</span>
+  <span class="tape-score">41</span>
 </div>
 
 <div class="tape-item bullish">
@@ -223,9 +223,9 @@
   <span class="tape-score">84</span>
 </div>
 
-<div class="tape-item neutral">
+<div class="tape-item bearish">
   <span class="tape-ticker">TLT</span>
-  <span class="tape-score">40</span>
+  <span class="tape-score">39</span>
 </div>
 
 <div class="tape-item bearish">
@@ -261,7 +261,7 @@
 
 <div class="tape-item bullish">
   <span class="tape-ticker">^N225</span>
-  <span class="tape-score">82</span>
+  <span class="tape-score">79</span>
 </div>
 
 <div class="tape-item neutral">
@@ -271,7 +271,7 @@
 
 <div class="tape-item neutral">
   <span class="tape-ticker">^HSI</span>
-  <span class="tape-score">42</span>
+  <span class="tape-score">41</span>
 </div>
 
 <div class="tape-item bullish">
@@ -284,9 +284,9 @@
   <span class="tape-score">84</span>
 </div>
 
-<div class="tape-item neutral">
+<div class="tape-item bearish">
   <span class="tape-ticker">TLT</span>
-  <span class="tape-score">40</span>
+  <span class="tape-score">39</span>
 </div>
 
 <div class="tape-item bearish">
@@ -568,14 +568,14 @@
     </div>
     <div class="asset-ma-badge above">ABOVE MA</div>
   </div>
-  <div class="asset-score bullish">81.8</div>
+  <div class="asset-score bullish">79.3</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line up" points="0.00,23.54 4.14,20.00 8.28,19.38 12.41,23.11 16.55,21.37 20.69,21.27 24.83,21.21 28.97,21.41 33.10,24.00 37.24,16.00 41.38,17.65 45.52,19.50 49.66,17.81 53.79,9.63 57.93,4.65 62.07,4.65 66.21,4.69 70.34,7.39 74.48,7.92 78.62,8.85 82.76,6.61 86.90,5.36 91.03,7.84 95.17,7.84 99.31,5.92 103.45,1.03 107.59,0.38 111.72,0.00 115.86,3.07 120.00,7.52" />
+      <polyline class="spark-line up" points="0.00,23.54 4.14,20.00 8.28,19.38 12.41,23.11 16.55,21.37 20.69,21.27 24.83,21.21 28.97,21.41 33.10,24.00 37.24,16.00 41.38,17.65 45.52,19.50 49.66,17.81 53.79,9.63 57.93,4.65 62.07,4.65 66.21,4.69 70.34,7.39 74.48,7.92 78.62,8.85 82.76,6.61 86.90,5.36 91.03,7.84 95.17,7.84 99.31,5.92 103.45,1.03 107.59,0.38 111.72,0.00 115.86,3.07 120.00,8.57" />
     </svg>
   </div>
   <div class="asset-meta">
-    <span>RSI: 44</span>
+    <span>RSI: 43</span>
     <span>Wt: 5.1%</span>
   </div>
 </div>
@@ -610,10 +610,10 @@
     </div>
     <div class="asset-ma-badge below">BELOW MA</div>
   </div>
-  <div class="asset-score neutral">42.1</div>
+  <div class="asset-score neutral">41.4</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line down" points="0.00,17.07 4.14,16.52 8.28,15.04 12.41,14.84 16.55,10.38 20.69,1.74 24.83,0.00 28.97,7.17 33.10,14.72 37.24,13.99 41.38,13.83 45.52,13.37 49.66,17.38 53.79,11.61 57.93,9.69 62.07,8.66 66.21,11.55 70.34,17.29 74.48,15.58 78.62,15.58 82.76,15.58 86.90,15.58 91.03,19.19 95.17,10.94 99.31,17.01 103.45,14.84 107.59,19.59 111.72,16.51 115.86,23.55 120.00,24.00" />
+      <polyline class="spark-line down" points="0.00,16.74 4.14,16.20 8.28,14.75 12.41,14.55 16.55,10.18 20.69,1.71 24.83,0.00 28.97,7.03 33.10,14.43 37.24,13.72 41.38,13.56 45.52,13.11 49.66,17.04 53.79,11.39 57.93,9.50 62.07,8.49 66.21,11.32 70.34,16.96 74.48,15.28 78.62,15.28 82.76,15.28 86.90,15.28 91.03,18.82 95.17,10.73 99.31,16.68 103.45,14.55 107.59,19.21 111.72,16.19 115.86,23.10 120.00,24.00" />
     </svg>
   </div>
   <div class="asset-meta">
@@ -673,14 +673,14 @@
     </div>
     <div class="asset-ma-badge above">ABOVE MA</div>
   </div>
-  <div class="asset-score neutral">40.2</div>
+  <div class="asset-score bearish">38.6</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line up" points="0.00,21.55 4.14,19.43 8.28,18.08 12.41,15.74 16.55,18.81 20.69,19.93 24.83,19.82 28.97,22.55 33.10,23.94 37.24,22.77 41.38,24.00 45.52,18.73 49.66,18.39 53.79,18.50 57.93,12.84 62.07,15.48 66.21,8.92 70.34,6.17 74.48,6.17 78.62,5.33 82.76,7.23 86.90,6.73 91.03,7.91 95.17,6.06 99.31,5.16 103.45,5.10 107.59,3.08 111.72,0.00 115.86,6.79 120.00,6.79" />
+      <polyline class="spark-line up" points="0.00,21.55 4.14,19.43 8.28,18.08 12.41,15.74 16.55,18.81 20.69,19.93 24.83,19.82 28.97,22.55 33.10,23.94 37.24,22.77 41.38,24.00 45.52,18.73 49.66,18.39 53.79,18.50 57.93,12.84 62.07,15.48 66.21,8.92 70.34,6.17 74.48,6.17 78.62,5.33 82.76,7.23 86.90,6.73 91.03,7.91 95.17,6.06 99.31,5.16 103.45,5.10 107.59,3.08 111.72,0.00 115.86,5.11 120.00,5.11" />
     </svg>
   </div>
   <div class="asset-meta">
-    <span>RSI: 65</span>
+    <span>RSI: 69</span>
     <span>Wt: 7.5%</span>
   </div>
 </div>
@@ -715,10 +715,10 @@
     </div>
     <div class="asset-ma-badge above">ABOVE MA</div>
   </div>
-  <div class="asset-score neutral">47.3</div>
+  <div class="asset-score neutral">47.1</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line down" points="0.00,0.00 4.14,3.78 8.28,10.96 12.41,16.25 16.55,24.00 20.69,21.83 24.83,23.43 28.97,16.72 33.10,10.87 37.24,12.47 41.38,10.77 45.52,8.88 49.66,10.68 53.79,18.33 57.93,18.52 62.07,18.24 66.21,17.29 70.34,17.76 74.48,17.76 78.62,15.12 82.76,10.02 86.90,7.84 91.03,9.07 95.17,10.02 99.31,8.32 103.45,10.02 107.59,9.17 111.72,10.87 115.86,2.11 120.00,2.11" />
+      <polyline class="spark-line down" points="0.00,0.00 4.14,3.78 8.28,10.96 12.41,16.25 16.55,24.00 20.69,21.83 24.83,23.43 28.97,16.72 33.10,10.87 37.24,12.47 41.38,10.77 45.52,8.88 49.66,10.68 53.79,18.33 57.93,18.52 62.07,18.24 66.21,17.29 70.34,17.76 74.48,17.76 78.62,15.12 82.76,10.02 86.90,7.84 91.03,9.07 95.17,10.02 99.31,8.32 103.45,10.02 107.59,9.17 111.72,10.87 115.86,1.82 120.00,1.82" />
     </svg>
   </div>
   <div class="asset-meta">
@@ -733,8 +733,8 @@
         <div class="bar"><div class="bull"></div><div class="neu"></div><div class="bear"></div></div>
         <div class="b-meta">
           <div>Bullish <span>4</span></div>
-          <div>Neutral <span>7</span></div>
-          <div>Bearish <span>1</span></div>
+          <div>Neutral <span>6</span></div>
+          <div>Bearish <span>2</span></div>
         </div>
       </div>
     </section>
@@ -845,9 +845,9 @@
 <div class="signal-row">
   <div class="signal-left">
     <div class="signal-name">Market Breadth</div>
-    <div class="signal-detail">Bull 4 | Neutral 7 | Bear 1</div>
+    <div class="signal-detail">Bull 4 | Neutral 6 | Bear 2</div>
   </div>
-  <div class="signal-value up">+25.0</div>
+  <div class="signal-value neutral">+16.7</div>
 </div>
 </div>
 
@@ -934,7 +934,7 @@
 
     <footer class="footer">
       <span>Cloudy&Shiny Index | Monarch Castle Technologies</span>
-      <span>Last Update: 2026-03-03 04:00 UTC</span>
+      <span>Last Update: 2026-03-03 04:26 UTC</span>
     </footer>
   </main>
 </body>
