@@ -129,7 +129,7 @@
     .breadth{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px}
     .b-title{font-size:10px;color:#5f6b77;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
     .bar{display:flex;height:14px;border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
-    .bull{background:rgba(63,185,80,.8);width:41.7%}.neu{background:rgba(210,153,34,.7);width:58.3%}.bear{background:rgba(248,81,73,.8);width:0.0%}
+    .bull{background:rgba(63,185,80,.8);width:50.0%}.neu{background:rgba(210,153,34,.7);width:50.0%}.bear{background:rgba(248,81,73,.8);width:0.0%}
     .b-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font:10px "JetBrains Mono",monospace;color:var(--muted)}
     .b-meta span{display:block;font-size:16px;font-weight:700;margin-top:3px}
     .signals,.feed{display:grid;gap:8px}
@@ -220,7 +220,7 @@
 
 <div class="tape-item bullish">
   <span class="tape-ticker">^VIX</span>
-  <span class="tape-score">87</span>
+  <span class="tape-score">88</span>
 </div>
 
 <div class="tape-item neutral">
@@ -281,7 +281,7 @@
 
 <div class="tape-item bullish">
   <span class="tape-ticker">^VIX</span>
-  <span class="tape-score">87</span>
+  <span class="tape-score">88</span>
 </div>
 
 <div class="tape-item neutral">
@@ -305,7 +305,7 @@
   <main class="grid">
     <section class="panel">
       <div class="score-label">Cloudy&Shiny Index</div>
-      <div class="score">53.2</div>
+      <div class="score">53.7</div>
       <div class="status" style="color:var(--accent-yellow)">CLOUDY | Neutral</div>
 
       <div class="card gauge">
@@ -315,7 +315,7 @@
           <path class="fear" d="M 20 110 A 90 90 0 0 1 200 110" style="stroke-dasharray:94.2 188.5;stroke-dashoffset:0"></path>
           <path class="neu" d="M 20 110 A 90 90 0 0 1 200 110" style="stroke-dasharray:94.2 188.5;stroke-dashoffset:-94.2"></path>
           <path class="grd" d="M 20 110 A 90 90 0 0 1 200 110" style="stroke-dasharray:94.2 188.5;stroke-dashoffset:-188.4"></path>
-          <g transform="translate(110,110) rotate(5.8)"><line class="needle" x1="0" y1="0" x2="0" y2="-82"></line></g>
+          <g transform="translate(110,110) rotate(6.7)"><line class="needle" x1="0" y1="0" x2="0" y2="-82"></line></g>
           <circle class="cap" cx="110" cy="110" r="5"></circle>
         </svg>
         <div class="g-scale"><span>0 FEAR</span><span>50 NEUTRAL</span><span>100 GREED</span></div>
@@ -328,8 +328,8 @@
             <line class="gl" x1="0" y1="20" x2="200" y2="20"></line>
             <line class="gl" x1="0" y1="40" x2="200" y2="40"></line>
             <line class="gl" x1="0" y1="60" x2="200" y2="60"></line>
-            <polyline class="ma" points="0.00,37.66 4.26,37.59 8.51,37.57 12.77,37.56 17.02,37.48 21.28,37.38 25.53,37.20 29.79,37.04 34.04,36.88 38.30,36.72 42.55,36.61 46.81,36.56 51.06,36.61 55.32,36.65 59.57,36.66 63.83,36.66 68.09,36.65 72.34,36.65 76.60,36.63 80.85,36.78 85.11,37.01 89.36,37.40 93.62,37.71 97.87,37.88 102.13,38.17 106.38,38.20 110.64,38.19 114.89,38.03 119.15,37.97 123.40,38.05 127.66,38.01 131.91,38.05 136.17,38.09 140.43,38.13 144.68,38.15 148.94,38.35 153.19,38.45 157.45,38.56 161.70,38.68 165.96,38.79 170.21,38.83 174.47,38.63 178.72,38.48 182.98,38.34 187.23,38.24 191.49,38.09 195.74,38.01 200.00,37.90"></polyline>
-            <polyline class="line" points="0.00,37.66 4.26,37.52 8.51,37.52 12.77,37.52 17.02,37.20 21.28,36.88 25.53,36.56 29.79,36.56 34.04,36.56 38.30,36.56 42.55,36.56 46.81,36.56 51.06,36.85 55.32,36.78 59.57,36.66 63.83,36.54 68.09,36.50 72.34,36.59 76.60,36.69 80.85,37.71 85.11,38.01 89.36,38.87 93.62,38.37 97.87,37.65 102.13,38.40 106.38,37.93 110.64,37.93 114.89,37.93 119.15,38.01 123.40,38.09 127.66,38.17 131.91,38.17 136.17,38.17 140.43,38.17 144.68,38.17 148.94,39.29 153.19,38.76 157.45,38.80 161.70,38.88 165.96,38.83 170.21,38.42 174.47,38.12 178.72,37.82 182.98,37.98 187.23,38.25 191.49,37.98 195.74,37.93 200.00,37.44"></polyline>
+            <polyline class="ma" points="0.00,37.52 4.17,37.52 8.33,37.52 12.50,37.52 16.67,37.46 20.83,37.36 25.00,37.20 29.17,37.04 33.33,36.88 37.50,36.72 41.67,36.61 45.83,36.56 50.00,36.61 54.17,36.65 58.33,36.66 62.50,36.66 66.67,36.65 70.83,36.65 75.00,36.63 79.17,36.78 83.33,37.01 87.50,37.40 91.67,37.71 95.83,37.88 100.00,38.17 104.17,38.20 108.33,38.19 112.50,38.03 116.67,37.97 120.83,38.05 125.00,38.01 129.17,38.05 133.33,38.09 137.50,38.13 141.67,38.15 145.83,38.35 150.00,38.45 154.17,38.56 158.33,38.68 162.50,38.79 166.67,38.83 170.83,38.63 175.00,38.48 179.17,38.34 183.33,38.24 187.50,38.09 191.67,38.01 195.83,37.90 200.00,37.77"></polyline>
+            <polyline class="line" points="0.00,37.52 4.17,37.52 8.33,37.52 12.50,37.52 16.67,37.20 20.83,36.88 25.00,36.56 29.17,36.56 33.33,36.56 37.50,36.56 41.67,36.56 45.83,36.56 50.00,36.85 54.17,36.78 58.33,36.66 62.50,36.54 66.67,36.50 70.83,36.59 75.00,36.69 79.17,37.71 83.33,38.01 87.50,38.87 91.67,38.37 95.83,37.65 100.00,38.40 104.17,37.93 108.33,37.93 112.50,37.93 116.67,38.01 120.83,38.09 125.00,38.17 129.17,38.17 133.33,38.17 137.50,38.17 141.67,38.17 145.83,39.29 150.00,38.76 154.17,38.80 158.33,38.88 162.50,38.83 166.67,38.42 170.83,38.12 175.00,37.82 179.17,37.98 183.33,38.25 187.50,37.98 191.67,37.93 195.83,37.44 200.00,37.04"></polyline>
           </svg>
         </div>
         <div class="legend"><span>Index</span><span>Smoothed</span></div>
@@ -339,19 +339,19 @@
         <div class="s-title">24H Forecast Path</div>
         <div class="box">
           <svg viewBox="0 0 200 75" preserveAspectRatio="none">
-            <polyline class="f-upper" points="97.87,35.10 102.13,34.39 106.38,34.37 110.64,34.35 114.89,34.33 119.15,34.30 123.40,34.27 127.66,34.24 131.91,34.21 136.17,34.18 140.43,34.15 144.68,34.11 148.94,34.08 153.19,34.04 157.45,34.00 161.70,33.97 165.96,33.93 170.21,33.89 174.47,33.85 178.72,33.82 182.98,33.78 187.23,33.74 191.49,33.70 195.74,33.66 200.00,33.62"></polyline>
-            <polyline class="f-lower" points="97.87,35.10 102.13,35.80 106.38,35.85 110.64,35.91 114.89,35.96 119.15,36.01 123.40,36.05 127.66,36.10 131.91,36.14 136.17,36.18 140.43,36.22 144.68,36.27 148.94,36.31 153.19,36.35 157.45,36.38 161.70,36.42 165.96,36.46 170.21,36.50 174.47,36.54 178.72,36.57 182.98,36.61 187.23,36.65 191.49,36.68 195.74,36.72 200.00,36.75"></polyline>
-            <polyline class="f-actual" points="0.00,36.00 4.26,35.56 8.51,35.56 12.77,35.56 17.02,35.63 21.28,35.71 25.53,35.78 29.79,35.78 34.04,35.78 38.30,35.78 42.55,35.78 46.81,36.83 51.06,36.34 55.32,36.37 59.57,36.45 63.83,36.40 68.09,36.02 72.34,35.74 76.60,35.46 80.85,35.60 85.11,35.86 89.36,35.60 93.62,35.56 97.87,35.10"></polyline>
-            <polyline class="f-proj" points="97.87,35.10 102.13,35.10 106.38,35.11 110.64,35.13 114.89,35.14 119.15,35.15 123.40,35.16 127.66,35.17 131.91,35.18 136.17,35.18 140.43,35.18 144.68,35.19 148.94,35.19 153.19,35.19 157.45,35.19 161.70,35.19 165.96,35.20 170.21,35.20 174.47,35.19 178.72,35.19 182.98,35.19 187.23,35.19 191.49,35.19 195.74,35.19 200.00,35.19"></polyline>
+            <polyline class="f-upper" points="97.87,34.72 102.13,34.02 106.38,34.01 110.64,33.99 114.89,33.97 119.15,33.95 123.40,33.93 127.66,33.91 131.91,33.88 136.17,33.85 140.43,33.82 144.68,33.79 148.94,33.76 153.19,33.73 157.45,33.70 161.70,33.67 165.96,33.63 170.21,33.60 174.47,33.56 178.72,33.53 182.98,33.49 187.23,33.46 191.49,33.42 195.74,33.39 200.00,33.35"></polyline>
+            <polyline class="f-lower" points="97.87,34.72 102.13,35.42 106.38,35.48 110.64,35.54 114.89,35.60 119.15,35.65 123.40,35.70 127.66,35.75 131.91,35.80 136.17,35.84 140.43,35.89 144.68,35.93 148.94,35.98 153.19,36.02 157.45,36.06 161.70,36.10 165.96,36.14 170.21,36.18 174.47,36.22 178.72,36.26 182.98,36.29 187.23,36.33 191.49,36.37 195.74,36.41 200.00,36.45"></polyline>
+            <polyline class="f-actual" points="0.00,35.56 4.26,35.56 8.51,35.56 12.77,35.63 17.02,35.71 21.28,35.78 25.53,35.78 29.79,35.78 34.04,35.78 38.30,35.78 42.55,36.83 46.81,36.34 51.06,36.37 55.32,36.45 59.57,36.40 63.83,36.02 68.09,35.74 72.34,35.46 76.60,35.60 80.85,35.86 85.11,35.60 89.36,35.56 93.62,35.10 97.87,34.72"></polyline>
+            <polyline class="f-proj" points="97.87,34.72 102.13,34.72 106.38,34.75 110.64,34.77 114.89,34.79 119.15,34.80 123.40,34.82 127.66,34.83 131.91,34.84 136.17,34.85 140.43,34.86 144.68,34.86 148.94,34.87 153.19,34.87 157.45,34.88 161.70,34.88 165.96,34.89 170.21,34.89 174.47,34.89 178.72,34.89 182.98,34.89 187.23,34.90 191.49,34.90 195.74,34.90 200.00,34.90"></polyline>
           </svg>
         </div>
         <div class="f-meta">
-          <span class="f-target">Base: 53.1</span>
-          <span class="f-delta neutral">-0.1 (CLOUDY)</span>
+          <span class="f-target">Base: 53.5</span>
+          <span class="f-delta neutral">-0.2 (CLOUDY)</span>
         </div>
         <div class="f-meta-2">
-          <span>Bear 51.0 | Bull 55.2</span>
-          <span>Spread 4.2</span>
+          <span>Bear 51.4 | Bull 55.5</span>
+          <span>Spread 4.1</span>
         </div>
       </div>
 
@@ -383,7 +383,7 @@
 <div class="wf-row">
   <div class="wf-label">Stock</div>
   <div class="wf-track">
-    <div class="wf-bar down" style="width:49.0%"></div>
+    <div class="wf-bar down" style="width:50.0%"></div>
   </div>
   <div class="wf-value down">-0.25</div>
 </div>
@@ -392,30 +392,30 @@
 <div class="wf-row">
   <div class="wf-label">Crypto</div>
   <div class="wf-track">
-    <div class="wf-bar up" style="width:22.4%"></div>
+    <div class="wf-bar up" style="width:19.9%"></div>
   </div>
-  <div class="wf-value up">+0.11</div>
+  <div class="wf-value up">+0.10</div>
 </div>
 
 
 <div class="wf-row">
   <div class="wf-label">VIX-Inv</div>
   <div class="wf-track">
-    <div class="wf-bar neutral" style="width:4.0%"></div>
+    <div class="wf-bar down" style="width:16.8%"></div>
   </div>
-  <div class="wf-value neutral">+0.02</div>
+  <div class="wf-value down">-0.08</div>
 </div>
 
         <div class="wf-total">
           <span>Total Delta</span>
-          <span class="down">-0.11</span>
+          <span class="down">-0.23</span>
         </div>
       </div>
 
       <div class="comp">
-        <div class="row"><div class="c-name">Stock Sentiment</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-stock" points="0.00,24.25 4.04,24.25 8.09,24.25 12.13,24.25 16.17,24.25 20.21,24.25 24.26,24.25 28.30,24.25 32.34,24.25 36.38,24.25 40.43,24.25 44.47,24.25 48.51,24.25 52.55,24.25 56.60,24.25 60.64,24.25 64.68,24.25 68.72,24.11 72.77,23.96 76.81,24.76 80.85,24.73 84.89,24.84 88.94,25.01 92.98,24.75 97.02,25.32 101.06,25.33 105.11,25.33 109.15,25.33 113.19,25.33 117.23,25.33 121.28,25.33 125.32,25.33 129.36,25.33 133.40,25.33 137.45,25.33 141.49,25.33 145.53,25.33 149.57,25.33 153.62,25.33 157.66,25.33 161.70,25.33 165.74,24.57 169.79,23.82 173.83,23.68 177.87,23.76 181.91,23.57 185.96,23.64 190.00,23.45"></polyline></svg></div>
-        <div class="row"><div class="c-name">Crypto Sentiment</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-crypto" points="0.00,39.05 4.04,39.05 8.09,39.05 12.13,39.05 16.17,38.32 20.21,37.58 24.26,36.85 28.30,36.85 32.34,36.85 36.38,36.85 40.43,36.85 44.47,36.85 48.51,36.85 52.55,36.85 56.60,36.85 60.64,36.85 64.68,36.85 68.72,36.85 72.77,36.85 76.81,36.85 80.85,36.85 84.89,36.85 88.94,36.85 92.98,36.85 97.02,36.85 101.06,36.85 105.11,36.85 109.15,36.85 113.19,37.03 117.23,37.22 121.28,37.40 125.32,37.40 129.36,37.40 133.40,37.40 137.45,37.40 141.49,37.40 145.53,37.40 149.57,37.40 153.62,37.40 157.66,37.40 161.70,37.40 165.74,37.40 169.79,37.40 173.83,37.40 177.87,37.40 181.91,37.40 185.96,37.40 190.00,37.40"></polyline></svg></div>
-        <div class="row"><div class="c-name">VIX Inverse</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-vix" points="0.00,14.92 4.04,14.60 8.09,14.60 12.13,14.60 16.17,14.60 20.21,14.60 24.26,14.60 28.30,14.60 32.34,14.60 36.38,14.60 40.43,14.60 44.47,14.60 48.51,15.27 52.55,15.11 56.60,14.84 60.64,14.55 64.68,14.46 68.72,14.87 72.77,15.28 76.81,16.57 80.85,17.28 84.89,19.11 88.94,17.73 92.98,16.43 97.02,17.38 101.06,16.30 105.11,16.30 109.15,16.30 113.19,16.30 117.23,16.30 121.28,16.30 125.32,16.30 129.36,16.30 133.40,16.30 137.45,16.30 141.49,18.86 145.53,17.64 149.57,17.74 153.62,17.92 157.66,17.82 161.70,16.86 165.74,17.19 169.79,17.52 173.83,18.05 177.87,18.57 181.91,18.21 185.96,17.99 190.00,17.14"></polyline></svg></div>
+        <div class="row"><div class="c-name">Stock Sentiment</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-stock" points="0.00,24.25 3.96,24.25 7.92,24.25 11.88,24.25 15.83,24.25 19.79,24.25 23.75,24.25 27.71,24.25 31.67,24.25 35.62,24.25 39.58,24.25 43.54,24.25 47.50,24.25 51.46,24.25 55.42,24.25 59.38,24.25 63.33,24.25 67.29,24.11 71.25,23.96 75.21,24.76 79.17,24.73 83.12,24.84 87.08,25.01 91.04,24.75 95.00,25.32 98.96,25.33 102.92,25.33 106.88,25.33 110.83,25.33 114.79,25.33 118.75,25.33 122.71,25.33 126.67,25.33 130.62,25.33 134.58,25.33 138.54,25.33 142.50,25.33 146.46,25.33 150.42,25.33 154.38,25.33 158.33,25.33 162.29,24.57 166.25,23.82 170.21,23.68 174.17,23.76 178.12,23.57 182.08,23.64 186.04,23.45 190.00,23.26"></polyline></svg></div>
+        <div class="row"><div class="c-name">Crypto Sentiment</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-crypto" points="0.00,39.05 3.96,39.05 7.92,39.05 11.88,39.05 15.83,38.32 19.79,37.58 23.75,36.85 27.71,36.85 31.67,36.85 35.62,36.85 39.58,36.85 43.54,36.85 47.50,36.85 51.46,36.85 55.42,36.85 59.38,36.85 63.33,36.85 67.29,36.85 71.25,36.85 75.21,36.85 79.17,36.85 83.12,36.85 87.08,36.85 91.04,36.85 95.00,36.85 98.96,36.85 102.92,36.85 106.88,36.85 110.83,37.03 114.79,37.22 118.75,37.40 122.71,37.40 126.67,37.40 130.62,37.40 134.58,37.40 138.54,37.40 142.50,37.40 146.46,37.40 150.42,37.40 154.38,37.40 158.33,37.40 162.29,37.40 166.25,37.40 170.21,37.40 174.17,37.40 178.12,37.40 182.08,37.40 186.04,37.40 190.00,37.40"></polyline></svg></div>
+        <div class="row"><div class="c-name">VIX Inverse</div><svg viewBox="0 0 190 55" preserveAspectRatio="none"><polyline class="c-vix" points="0.00,14.60 3.96,14.60 7.92,14.60 11.88,14.60 15.83,14.60 19.79,14.60 23.75,14.60 27.71,14.60 31.67,14.60 35.62,14.60 39.58,14.60 43.54,14.60 47.50,15.27 51.46,15.11 55.42,14.84 59.38,14.55 63.33,14.46 67.29,14.87 71.25,15.28 75.21,16.57 79.17,17.28 83.12,19.11 87.08,17.73 91.04,16.43 95.00,17.38 98.96,16.30 102.92,16.30 106.88,16.30 110.83,16.30 114.79,16.30 118.75,16.30 122.71,16.30 126.67,16.30 130.62,16.30 134.58,16.30 138.54,18.86 142.50,17.64 146.46,17.74 150.42,17.92 154.38,17.82 158.33,16.86 162.29,17.19 166.25,17.52 170.21,18.05 174.17,18.57 178.12,18.21 182.08,17.99 186.04,17.14 190.00,16.46"></polyline></svg></div>
       </div>
 
       <div class="h">Methodology and Weights</div>
@@ -437,17 +437,17 @@
 
     <section class="panel">
       <div class="kpis">
-        <div class="k"><div class="kl">1D Delta</div><div class="kv up">+0.6</div><div class="kn">Day-over-day mood shift</div></div>
-        <div class="k"><div class="kl">7D Delta</div><div class="kv down">-1.8</div><div class="kn">Weekly regime movement</div></div>
-        <div class="k"><div class="kl">Intraday Vol</div><div class="kv up">0.52</div><div class="kn">24h standard deviation</div></div>
-        <div class="k"><div class="kl">Component Spread</div><div class="kv down">36.8</div><div class="kn">Stock/Crypto/VIX divergence</div></div>
-        <div class="k"><div class="kl">Momentum 6H</div><div class="kv neutral">+0.9</div><div class="kn">Short-horizon acceleration</div></div>
+        <div class="k"><div class="kl">1D Delta</div><div class="kv up">+1.1</div><div class="kn">Day-over-day mood shift</div></div>
+        <div class="k"><div class="kl">7D Delta</div><div class="kv neutral">-1.3</div><div class="kn">Weekly regime movement</div></div>
+        <div class="k"><div class="kl">Intraday Vol</div><div class="kv up">0.60</div><div class="kn">24h standard deviation</div></div>
+        <div class="k"><div class="kl">Component Spread</div><div class="kv down">38.1</div><div class="kn">Stock/Crypto/VIX divergence</div></div>
+        <div class="k"><div class="kl">Momentum 6H</div><div class="kv neutral">+1.0</div><div class="kn">Short-horizon acceleration</div></div>
       </div>
 
       <div class="kpis bt">
-        <div class="k"><div class="kl">Backtest MAE 1H</div><div class="kv">0.23</div><div class="kn">Rolling out-of-sample error</div></div>
+        <div class="k"><div class="kl">Backtest MAE 1H</div><div class="kv">0.24</div><div class="kn">Rolling out-of-sample error</div></div>
         <div class="k"><div class="kl">Backtest MAE 6H</div><div class="kv">0.93</div><div class="kn">Mid-horizon forecast error</div></div>
-        <div class="k"><div class="kl">Backtest MAE 24H</div><div class="kv up">2.09</div><div class="kn">Daily horizon error</div></div>
+        <div class="k"><div class="kl">Backtest MAE 24H</div><div class="kv up">2.08</div><div class="kn">Daily horizon error</div></div>
         <div class="k"><div class="kl">Direction Hit 24H</div><div class="kv down">42.7%</div><div class="kn">N=220 rolling windows</div></div>
       </div>
 
@@ -455,17 +455,17 @@
         <div class="conf-title">Forecast Confidence Dashboard</div>
         <div class="conf-chart">
           <svg viewBox="0 0 200 55" preserveAspectRatio="none">
-            <polyline class="conf-line" points="0.00,51.37 2.53,51.07 5.06,51.44 7.59,51.30 10.13,51.29 12.66,51.47 15.19,51.34 17.72,51.38 20.25,51.47 22.78,51.53 25.32,51.58 27.85,52.45 30.38,51.35 32.91,50.31 35.44,48.88 37.97,48.93 40.51,48.95 43.04,48.94 45.57,48.91 48.10,48.84 50.63,48.83 53.16,48.83 55.70,21.23 58.23,21.42 60.76,25.95 63.29,22.71 65.82,18.68 68.35,14.18 70.89,16.15 73.42,23.85 75.95,25.39 78.48,23.30 81.01,26.19 83.54,28.72 86.08,28.89 88.61,29.07 91.14,31.73 93.67,34.56 96.20,37.30 98.73,37.04 101.27,36.81 103.80,36.62 106.33,36.45 108.86,36.35 111.39,31.30 113.92,32.23 116.46,52.77 118.99,51.99 121.52,53.74 124.05,54.24 126.58,52.10 129.11,45.95 131.65,41.55 134.18,22.38 136.71,32.12 139.24,47.12 141.77,33.01 144.30,39.73 146.84,40.11 149.37,40.53 151.90,33.99 154.43,26.79 156.96,20.33 159.49,20.02 162.03,19.77 164.56,19.57 167.09,19.40 169.62,0.00 172.15,13.12 174.68,12.44 177.22,10.34 179.75,10.26 182.28,17.38 184.81,24.27 187.34,31.86 189.87,43.67 192.41,48.02 194.94,38.21 197.47,47.46 200.00,53.39"></polyline>
+            <polyline class="conf-line" points="0.00,51.07 2.53,51.44 5.06,51.30 7.59,51.29 10.13,51.47 12.66,51.34 15.19,51.38 17.72,51.47 20.25,51.53 22.78,51.58 25.32,52.45 27.85,51.35 30.38,50.31 32.91,48.88 35.44,48.93 37.97,48.95 40.51,48.94 43.04,48.91 45.57,48.84 48.10,48.83 50.63,48.83 53.16,21.23 55.70,21.42 58.23,25.95 60.76,22.71 63.29,18.68 65.82,14.18 68.35,16.15 70.89,23.85 73.42,25.39 75.95,23.30 78.48,26.19 81.01,28.72 83.54,28.89 86.08,29.07 88.61,31.73 91.14,34.56 93.67,37.30 96.20,37.04 98.73,36.81 101.27,36.62 103.80,36.45 106.33,36.35 108.86,31.30 111.39,32.23 113.92,52.77 116.46,51.99 118.99,53.74 121.52,54.24 124.05,52.10 126.58,45.95 129.11,41.55 131.65,22.38 134.18,32.12 136.71,47.12 139.24,33.01 141.77,39.73 144.30,40.11 146.84,40.53 149.37,33.99 151.90,26.79 154.43,20.33 156.96,20.02 159.49,19.77 162.03,19.57 164.56,19.40 167.09,0.00 169.62,13.12 172.15,12.44 174.68,10.34 177.22,10.26 179.75,17.38 182.28,24.27 184.81,31.86 187.34,43.67 189.87,48.02 192.41,38.21 194.94,47.46 197.47,53.39 200.00,32.52"></polyline>
           </svg>
         </div>
         <div class="conf-grid">
           <div class="conf-item">
             <div class="conf-l">Coverage 24H</div>
-            <div class="conf-v neutral">56.8%</div>
+            <div class="conf-v neutral">57.3%</div>
           </div>
           <div class="conf-item">
             <div class="conf-l">Bias 24H</div>
-            <div class="conf-v up">-0.26</div>
+            <div class="conf-v up">-0.28</div>
           </div>
           <div class="conf-item">
             <div class="conf-l">Error Drift</div>
@@ -484,10 +484,10 @@
     </div>
     <div class="asset-ma-badge above">ABOVE MA</div>
   </div>
-  <div class="asset-score neutral">60.0</div>
+  <div class="asset-score neutral">60.5</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line up" points="0.00,14.13 4.14,15.28 8.28,13.23 12.41,12.69 16.55,15.54 20.69,16.04 24.83,18.93 28.97,16.84 33.10,17.52 37.24,16.40 41.38,19.99 45.52,23.35 49.66,24.00 53.79,18.38 57.93,16.89 62.07,16.71 66.21,16.71 70.34,15.76 74.48,15.67 78.62,10.54 82.76,9.35 86.90,9.48 91.03,7.45 95.17,4.90 99.31,3.22 103.45,2.70 107.59,0.10 111.72,0.54 115.86,1.96 120.00,0.00" />
+      <polyline class="spark-line up" points="0.00,14.22 4.14,15.36 8.28,13.32 12.41,12.79 16.55,15.62 20.69,16.11 24.83,18.97 28.97,16.91 33.10,17.57 37.24,16.47 41.38,20.02 45.52,23.36 49.66,24.00 53.79,18.43 57.93,16.95 62.07,16.77 66.21,16.77 70.34,15.83 74.48,15.74 78.62,10.66 82.76,9.47 86.90,9.61 91.03,7.60 95.17,5.07 99.31,3.41 103.45,2.88 107.59,0.32 111.72,0.75 115.86,2.15 120.00,0.00" />
     </svg>
   </div>
   <div class="asset-meta">
@@ -505,10 +505,10 @@
     </div>
     <div class="asset-ma-badge above">ABOVE MA</div>
   </div>
-  <div class="asset-score bullish">75.6</div>
+  <div class="asset-score bullish">76.3</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line up" points="0.00,14.45 4.14,15.33 8.28,13.67 12.41,12.94 16.55,15.04 20.69,15.51 24.83,18.24 28.97,16.57 33.10,17.58 37.24,16.62 41.38,20.12 45.52,22.93 49.66,24.00 53.79,19.28 57.93,17.50 62.07,17.33 66.21,17.33 70.34,16.45 74.48,16.43 78.62,12.05 82.76,11.03 86.90,10.81 91.03,9.23 95.17,6.43 99.31,4.23 103.45,3.47 107.59,1.37 111.72,1.89 115.86,2.50 120.00,0.00" />
+      <polyline class="spark-line up" points="0.00,14.52 4.14,15.40 8.28,13.75 12.41,13.03 16.55,15.11 20.69,15.57 24.83,18.29 28.97,16.63 33.10,17.63 37.24,16.68 41.38,20.16 45.52,22.93 49.66,24.00 53.79,19.32 57.93,17.55 62.07,17.38 66.21,17.38 70.34,16.51 74.48,16.49 78.62,12.15 82.76,11.13 86.90,10.92 91.03,9.35 95.17,6.57 99.31,4.39 103.45,3.63 107.59,1.55 111.72,2.06 115.86,2.67 120.00,0.00" />
     </svg>
   </div>
   <div class="asset-meta">
@@ -652,14 +652,14 @@
     </div>
     <div class="asset-ma-badge below">BELOW MA</div>
   </div>
-  <div class="asset-score bullish">87.2</div>
+  <div class="asset-score bullish">87.5</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line down" points="0.00,6.65 4.14,6.83 8.28,13.34 12.41,15.35 16.55,10.54 20.69,12.36 24.83,7.55 28.97,8.67 33.10,7.25 37.24,10.12 41.38,6.38 45.52,0.00 49.66,0.78 53.79,10.26 57.93,11.51 62.07,12.70 66.21,12.70 70.34,12.17 74.48,9.32 78.62,17.70 82.76,20.45 86.90,20.90 91.03,21.10 95.17,22.44 99.31,22.78 103.45,23.19 107.59,24.00 111.72,21.54 115.86,20.43 120.00,21.40" />
+      <polyline class="spark-line down" points="0.00,6.65 4.14,6.83 8.28,13.34 12.41,15.35 16.55,10.54 20.69,12.36 24.83,7.55 28.97,8.67 33.10,7.25 37.24,10.12 41.38,6.38 45.52,0.00 49.66,0.78 53.79,10.26 57.93,11.51 62.07,12.70 66.21,12.70 70.34,12.17 74.48,9.32 78.62,17.70 82.76,20.45 86.90,20.90 91.03,21.10 95.17,22.44 99.31,22.78 103.45,23.19 107.59,24.00 111.72,21.54 115.86,20.43 120.00,21.79" />
     </svg>
   </div>
   <div class="asset-meta">
-    <span>RSI: 31</span>
+    <span>RSI: 30</span>
     <span>Wt: 7.5%</span>
   </div>
 </div>
@@ -673,14 +673,14 @@
     </div>
     <div class="asset-ma-badge below">BELOW MA</div>
   </div>
-  <div class="asset-score neutral">53.1</div>
+  <div class="asset-score neutral">53.4</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line up" points="0.00,7.36 4.14,12.74 8.28,4.36 12.41,1.36 16.55,7.49 20.69,0.86 24.83,21.62 28.97,14.62 33.10,19.37 37.24,8.99 41.38,18.12 45.52,24.00 49.66,9.74 53.79,10.86 57.93,11.93 62.07,5.28 66.21,5.28 70.34,7.03 74.48,7.16 78.62,3.64 82.76,6.41 86.90,9.04 91.03,5.78 95.17,0.00 99.31,4.77 103.45,11.68 107.59,1.76 111.72,2.01 115.86,8.04 120.00,5.21" />
+      <polyline class="spark-line up" points="0.00,7.36 4.14,12.74 8.28,4.36 12.41,1.36 16.55,7.49 20.69,0.86 24.83,21.62 28.97,14.62 33.10,19.37 37.24,8.99 41.38,18.12 45.52,24.00 49.66,9.74 53.79,10.86 57.93,11.93 62.07,5.28 66.21,5.28 70.34,7.03 74.48,7.16 78.62,3.64 82.76,6.41 86.90,9.04 91.03,5.78 95.17,0.00 99.31,4.77 103.45,11.68 107.59,1.76 111.72,2.01 115.86,8.04 120.00,5.90" />
     </svg>
   </div>
   <div class="asset-meta">
-    <span>RSI: 50</span>
+    <span>RSI: 49</span>
     <span>Wt: 7.5%</span>
   </div>
 </div>
@@ -697,7 +697,7 @@
   <div class="asset-score neutral">65.7</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line down" points="0.00,0.00 4.14,2.19 8.28,2.34 12.41,2.76 16.55,8.02 20.69,14.66 24.83,19.38 28.97,22.77 33.10,22.74 37.24,18.33 41.38,24.00 45.52,18.91 49.66,18.95 53.79,13.26 57.93,10.53 62.07,13.58 66.21,13.58 70.34,14.21 74.48,12.71 78.62,11.72 82.76,10.50 86.90,10.78 91.03,11.42 95.17,7.89 99.31,9.57 103.45,9.71 107.59,7.59 111.72,8.98 115.86,13.52 120.00,11.45" />
+      <polyline class="spark-line down" points="0.00,0.00 4.14,2.19 8.28,2.34 12.41,2.76 16.55,8.02 20.69,14.66 24.83,19.38 28.97,22.77 33.10,22.74 37.24,18.33 41.38,24.00 45.52,18.91 49.66,18.95 53.79,13.26 57.93,10.53 62.07,13.58 66.21,13.58 70.34,14.21 74.48,12.71 78.62,11.72 82.76,10.50 86.90,10.78 91.03,11.42 95.17,7.89 99.31,9.57 103.45,9.71 107.59,7.59 111.72,8.98 115.86,13.52 120.00,11.44" />
     </svg>
   </div>
   <div class="asset-meta">
@@ -715,14 +715,14 @@
     </div>
     <div class="asset-ma-badge above">ABOVE MA</div>
   </div>
-  <div class="asset-score neutral">49.8</div>
+  <div class="asset-score neutral">49.5</div>
   <div class="asset-spark">
     <svg class="spark-svg" viewBox="0 0 120 24" preserveAspectRatio="none">
-      <polyline class="spark-line down" points="0.00,7.51 4.14,1.46 8.28,7.80 12.41,9.07 16.55,4.10 20.69,12.49 24.83,8.39 28.97,15.22 33.10,10.54 37.24,8.88 41.38,5.95 45.52,3.51 49.66,0.00 53.79,5.37 57.93,8.39 62.07,4.68 66.21,4.68 70.34,5.17 74.48,8.49 78.62,13.46 82.76,16.49 86.90,18.15 91.03,20.88 95.17,23.32 99.31,23.90 103.45,22.34 107.59,23.51 111.72,24.00 115.86,20.49 120.00,18.84" />
+      <polyline class="spark-line down" points="0.00,7.51 4.14,1.46 8.28,7.80 12.41,9.07 16.55,4.10 20.69,12.49 24.83,8.39 28.97,15.22 33.10,10.54 37.24,8.88 41.38,5.95 45.52,3.51 49.66,0.00 53.79,5.37 57.93,8.39 62.07,4.68 66.21,4.68 70.34,5.17 74.48,8.49 78.62,13.46 82.76,16.49 86.90,18.15 91.03,20.88 95.17,23.32 99.31,23.90 103.45,22.34 107.59,23.51 111.72,24.00 115.86,20.49 120.00,18.33" />
     </svg>
   </div>
   <div class="asset-meta">
-    <span>RSI: 24</span>
+    <span>RSI: 26</span>
     <span>Wt: 7.5%</span>
   </div>
 </div>
@@ -732,8 +732,8 @@
         <div class="b-title">Market Breadth Snapshot</div>
         <div class="bar"><div class="bull"></div><div class="neu"></div><div class="bear"></div></div>
         <div class="b-meta">
-          <div>Bullish <span>5</span></div>
-          <div>Neutral <span>7</span></div>
+          <div>Bullish <span>6</span></div>
+          <div>Neutral <span>6</span></div>
           <div>Bearish <span>0</span></div>
         </div>
       </div>
@@ -793,34 +793,34 @@
     <div class="signal-name">Momentum 6H</div>
     <div class="signal-detail">Stable</div>
   </div>
-  <div class="signal-value neutral">+0.9</div>
+  <div class="signal-value neutral">+1.0</div>
 </div>
 
 
 <div class="signal-row">
   <div class="signal-left">
     <div class="signal-name">Forecast 24H</div>
-    <div class="signal-detail">Driver Stock | S -0.2 C +0.1 V +0.0</div>
+    <div class="signal-detail">Driver Stock | S -0.2 C +0.1 V -0.1</div>
   </div>
-  <div class="signal-value neutral">53.1</div>
+  <div class="signal-value neutral">53.5</div>
 </div>
 
 
 <div class="signal-row">
   <div class="signal-left">
     <div class="signal-name">Forecast Spread</div>
-    <div class="signal-detail">sigma 1.11 | slope -0.05/h</div>
+    <div class="signal-detail">sigma 1.11 | slope -0.04/h</div>
   </div>
-  <div class="signal-value up">4.2</div>
+  <div class="signal-value up">4.1</div>
 </div>
 
 
 <div class="signal-row">
   <div class="signal-left">
     <div class="signal-name">Backtest 24H</div>
-    <div class="signal-detail">RMSE 2.71 | Hit 42.7% | N 220</div>
+    <div class="signal-detail">RMSE 2.70 | Hit 42.7% | N 220</div>
   </div>
-  <div class="signal-value up">2.09</div>
+  <div class="signal-value up">2.08</div>
 </div>
 
 
@@ -829,7 +829,7 @@
     <div class="signal-name">Intraday Vol</div>
     <div class="signal-detail">Calm</div>
   </div>
-  <div class="signal-value up">0.52</div>
+  <div class="signal-value up">0.60</div>
 </div>
 
 
@@ -838,16 +838,16 @@
     <div class="signal-name">Component Spread</div>
     <div class="signal-detail">Consensus Low</div>
   </div>
-  <div class="signal-value down">36.8</div>
+  <div class="signal-value down">38.1</div>
 </div>
 
 
 <div class="signal-row">
   <div class="signal-left">
     <div class="signal-name">Market Breadth</div>
-    <div class="signal-detail">Bull 5 | Neutral 7 | Bear 0</div>
+    <div class="signal-detail">Bull 6 | Neutral 6 | Bear 0</div>
   </div>
-  <div class="signal-value up">+41.7</div>
+  <div class="signal-value up">+50.0</div>
 </div>
 </div>
 
@@ -858,7 +858,7 @@
     <div class="history-time">Apr 22 00:00</div>
     <div class="history-badge neutral">CLOUDY</div>
   </div>
-  <div class="history-score">53.2</div>
+  <div class="history-score">53.7</div>
   <div class="history-label">Composite mood</div>
 </div>
 
@@ -925,16 +925,16 @@
 
       <div class="bench">
         <div class="h">Component Snapshot</div>
-        <div class="br"><span class="bn">Stock Sentiment</span><span class="bv" style="color:var(--accent)">57.4</span></div>
+        <div class="br"><span class="bn">Stock Sentiment</span><span class="bv" style="color:var(--accent)">57.7</span></div>
         <div class="br"><span class="bn">Crypto Fear and Greed</span><span class="bv" style="color:var(--yellow)">32.0</span></div>
-        <div class="br"><span class="bn">Inverse VIX Score</span><span class="bv" style="color:var(--green)">68.8</span></div>
-        <div class="br"><span class="bn">Composite - Stock Gap</span><span class="bv" style="color:var(--accent-red)">-4.2</span></div>
+        <div class="br"><span class="bn">Inverse VIX Score</span><span class="bv" style="color:var(--green)">70.1</span></div>
+        <div class="br"><span class="bn">Composite - Stock Gap</span><span class="bv" style="color:var(--accent-red)">-4.0</span></div>
       </div>
     </section>
 
     <footer class="footer">
       <span>Cloudy&Shiny Index | Monarch Castle Technologies</span>
-      <span>Last Update: 2026-04-22 19:39 UTC</span>
+      <span>Last Update: 2026-04-22 20:13 UTC</span>
     </footer>
   </main>
 </body>
