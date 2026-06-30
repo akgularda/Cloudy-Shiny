@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/logo.png" alt="Cloudy Shiny logo" width="140"/>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/monarchcastletech/Cloudy-Shiny/main/docs/logo-dark.png"><img src="docs/logo.png" alt="Cloudy Shiny logo" width="140"></picture>
   <!-- CODEX: generate a clean product logo here — a minimalist "Cloudy & Shiny" weather/markets mark (a half-cloud / half-sun motif) over a deep navy (#0b1f3a) field, terminal-grade and corporate; square, transparent background. -->
 
   # Cloudy Shiny
